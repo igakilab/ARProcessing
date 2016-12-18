@@ -119,7 +119,7 @@ void draw(){
     
     fill(0,0,0);
     if( tem >= 26){
-      fill(255,0,0);    
+      fill(0,0,255);    
       player.play();  //再生
     }
     if( tem < 22){
