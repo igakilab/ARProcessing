@@ -72,12 +72,14 @@ void setup(){
   
   Button = new ControlP5(this);
   Button.addButton("enviroment")
+        .setValue(0)
         .setPosition(10,10)
-        .setSize(50,10);
+        .setSize(50,20);
   
   Button.addButton("graph")
+        .setValue(100)
         .setPosition(70,10)
-        .setSize(50,10);
+        .setSize(60,10);
   
   float tem[] = new float[30];
         
@@ -166,7 +168,7 @@ void draw(){
     }else if( Noise > 55){
       fill(255,255,0);
     }else if( Noise > 50){
-      fill(0,255,0);
+      fill(40,163,11);
     }else{
       fill(0,0,255);
     }
@@ -176,8 +178,9 @@ void draw(){
     box(10,10,Noise*6);
     
     translate(0,50,0);
-    fill(255,255,0);
+    
     sphere(10);
+    translate(0,-50,0);
     
   }
   

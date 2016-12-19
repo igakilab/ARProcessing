@@ -51,6 +51,7 @@ int i= 0;
 PImage img;
 FindIterable<Document> result1, result2, result3;
 Document latest1, latest2, latest3;
+float x1 = 0.0,y1 = 0.0,x2 = 0.0,y2 = 0.0,x3 = 0.0,y3 = 0.0;
 
 MongoClient mongoClient = new MongoClient("150.89.234.253", 27017);
 
@@ -106,20 +107,21 @@ void draw(){
     vertex(100,-125,0,1);
     endShape();
     
-    float x1 = latest1.getDouble("x").floatValue();
-    float y1 = latest1.getDouble("y").floatValue();
+    x1 = latest1.getDouble("x").floatValue();
+    y1 = latest1.getDouble("y").floatValue();
     
-    float x2 = latest2.getDouble("x").floatValue();
-    float y2 = latest2.getDouble("y").floatValue();
+    x2 = latest2.getDouble("x").floatValue();
+    y2 = latest2.getDouble("y").floatValue();
     
-    float x3 = latest3.getDouble("x").floatValue();
-    float y3 = latest3.getDouble("y").floatValue();
+    x3 = latest3.getDouble("x").floatValue();
+    y3 = latest3.getDouble("y").floatValue();
     
     beaconsdata(x1,y1);
     
     beaconsdata(x2,y2);
     
     beaconsdata(x3,y3);
+    
     
   }
   
@@ -130,14 +132,16 @@ void draw(){
 void beaconsdata(float x, float y){
   float x_1, y_1, x1, y1;
   
-  x_1 = x * 23.148;
-  y_1 = y * 14.4;
+  x_1 = x * 2.5;
+  y_1 = y * 2.3768;
   
-  x1 = -93.625 + x_1;
-  y1 = 67.5 + y_1;
+  x1 = -100 + x_1;
+  y1 = 82 + y_1;
+  
+  rotateX(PI);
+  rotateY(PI);
   
   translate(x1,y1,0);
-  fill(0);
   sphere(4);
   translate(-x1,-y1,0);
 }
