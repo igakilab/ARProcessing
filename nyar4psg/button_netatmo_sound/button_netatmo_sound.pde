@@ -77,10 +77,12 @@ void setup(){
   
   
   minim = new Minim(this);  //初期化
-  player = minim.loadFile("groove.mp3");  //groove.mp3をロードする
+  player = minim.loadFile("button01a.mp3");  
      
   FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(30);
   latest = result.first();
+  
+  mongoClient.close();
 }
 
 
@@ -100,7 +102,10 @@ void draw(){
   translate(0,0,20);
   
 
-    fill(0,0,0);
+    fill(255,255,255);
+    translate(-150, -150,-10);
+    rect(0,0,300,300);
+    translate(150,150,10);
     
     float tem  = 0.0;
     int i = 0;
@@ -119,26 +124,61 @@ void draw(){
     
     fill(0,0,0);
     if( tem >= 26){
-      fill(0,0,255);    
+      fill(255,0,0);    
       player.play();  //再生
-    }
-    if( tem < 22){
+    }else if( tem < 22){
       fill(0,0,255);
       player.play();  //再生
     }
-    
+    else {
+      fill(0,255,0);
+    }
     text("temperature : "+tem+"℃", 0, 0);
     
+    if( Humidity > 60){
+      fill(255,0,0);    
+      player.play();  //再生
+    }else if( tem < 38){
+      fill(0,0,255);
+      player.play();  //再生
+    }
+    else {
+      fill(0,255,0);
+    }
     text("Humidity : "+Humidity+"%", 0, 10);
     
-    text("CO2 : "+CO2+"ppm", 0, 30);
+    if( CO2 > 1500){
+      fill(255,0,0);    
+      player.play();  //再生
+    }else if( CO2 > 1000){
+      fill(255,255,0);
+    }else if( CO2 > 700){
+      fill(0,255,0);
+    }else{
+      fill(0,0,255);
+    }
+    text("CO2 : "+CO2+"ppm", 0, 20);
     
-    text("Noise : "+Noise+"dB", 0,40);
+    if( Noise > 60){
+      fill(255,0,0);    
+      player.play();  //再生
+    }else if( Noise > 55){
+      fill(255,255,0);
+    }else if( Noise > 50){
+      fill(0,255,0);
+    }else{
+      fill(0,0,255);
+    }
+    text("Noise : "+Noise+"dB", 0, 30);
     
     translate(-50,0, 0);
     box(10,10,Noise*6);
     
-  
-  
+    translate(0,50,0);
+    fill(255,255,0);
+    sphere(10);
+        
+    
+              
   nya.endTransform();
 } 

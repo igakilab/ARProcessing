@@ -1,4 +1,3 @@
-
 import jp.nyatla.nyar4psg.*;
 import jp.nyatla.nyar4psg.utils.*;
 
@@ -68,7 +67,7 @@ void setup(){
   nya.addNyIdMarker(0, 80);
   cam.start();
   
-  img = loadImage("研究室.PNG");
+  img = loadImage("lab.PNG");
         
   FindIterable<Document> result1 = collection.find(Filters.eq("minor" ,101)).sort(Sorts.descending("date")).limit(30);
   FindIterable<Document> result2 = collection.find(Filters.eq("minor" ,102)).sort(Sorts.descending("date")).limit(30);
@@ -97,9 +96,15 @@ void draw(){
   translate(0,0,20);
   
   if( aa ){
-    fill(0,0,0);
     
-    picture();
+    beginShape(QUAD);
+    textureMode(NORMAL);
+    texture(img);
+    vertex(-100,-125,1,1);
+    vertex(-100,125,1,0);
+    vertex(100,125,0,0);
+    vertex(100,-125,0,1);
+    endShape();
     
     float x1 = latest1.getDouble("x").floatValue();
     float y1 = latest1.getDouble("y").floatValue();
@@ -121,15 +126,6 @@ void draw(){
   nya.endTransform();
 } 
 
-void picture(){
-  beginShape();
-  texture(img);
-  vertex(-100,-125);
-  vertex(-100,125);
-  vertex(100,125);
-  vertex(100,-125);
-  endShape();
-}
 
 void beaconsdata(float x, float y){
   float x_1, y_1, x1, y1;
