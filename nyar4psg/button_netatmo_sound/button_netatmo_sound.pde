@@ -174,9 +174,12 @@ void draw(){
     translate(-50,0, 0);
     box(10,10,Noise*6);
     
+    
     translate(0,50,0);
-    fill(255,255,0);
-    sphere(10);
+    fill(0,0,0);
+    text("CO2 concentration",-30,25);
+    fill(255,255,0,CO2/15);
+    ellipse(0,50,50,50);
         
     
               

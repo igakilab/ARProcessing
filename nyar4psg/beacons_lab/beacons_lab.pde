@@ -122,7 +122,7 @@ void draw(){
     
     beaconsdata(x3,y3);
     
-    
+    text(1,90,-75);
   }
   
   nya.endTransform();
@@ -132,14 +132,12 @@ void draw(){
 void beaconsdata(float x, float y){
   float x_1, y_1, x1, y1;
   
-  x_1 = x * 2.5;
-  y_1 = y * 2.3768;
+  x_1 = x * -22.5;
+  y_1 = y * 21.739;
   
-  x1 = -100 + x_1;
-  y1 = 82 + y_1;
+  x1 = 90 + x_1;
+  y1 = -75 + y_1;
   
-  rotateX(PI);
-  rotateY(PI);
   
   translate(x1,y1,0);
   sphere(4);
