@@ -122,7 +122,7 @@ void draw(){
     
     beaconsdata(x3,y3);
     
-    text(1,90,-75);
+    
   }
   
   nya.endTransform();
