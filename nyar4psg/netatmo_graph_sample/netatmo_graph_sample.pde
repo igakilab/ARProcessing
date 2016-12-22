@@ -69,15 +69,15 @@ void setup(){
   latest = result.first();
   oldest = result_ascend.first();
   
+  i = tem.length-1;
   for(Document doc : result){
-    for(i = tem.length-1; i >= 0; i--){
-      float a = doc.getDouble("tem").floatValue();
-      tem[i] = a;
-      
-      Date d = doc.getDate("date");
-      long b = d.getTime();
-      time[i] = b;
-    }
+    float a = doc.getDouble("tem").floatValue();
+    tem[i] = a;
+    
+    Date d = doc.getDate("date");
+    long b = d.getTime();
+    time[i] = b;
+    i--;
   }
   
   plotX1 = 120; 
@@ -119,6 +119,7 @@ void draw() {
   drawDataPoints();
 }
 
+//タイトルの表示
 void drawTitle(){
   fill(0);
   textSize(20);
@@ -126,6 +127,7 @@ void drawTitle(){
   text("Temperature History", plotX1,plotY1-10);
 }
 
+//グラフのそれぞれの軸のラベルの表示
 void drawAxisLabels(){
   fill(0);
   textSize(13);
@@ -137,6 +139,7 @@ void drawAxisLabels(){
   text("Time", (plotX1+plotX2)/2, labelY);
 }
 
+//グラフの横軸の表示
 void drawTimeLabels() {
   fill(0);
   textSize(10);
@@ -154,6 +157,7 @@ void drawTimeLabels() {
   }
 }
 
+//グラフの縦軸の表示
 void drawVolumeLabels() {
   fill(0);
   textSize(10);
@@ -182,6 +186,7 @@ void drawVolumeLabels() {
   }
 }
 
+//指定した配列をプロットする
 void drawDataPoints() {
   beginShape();
   for (int row = 0; row < tem.length; row++) {
