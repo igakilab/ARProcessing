@@ -1,3 +1,4 @@
+
 import com.mongodb.*;
 import com.mongodb.annotations.*;
 import com.mongodb.assertions.*;
@@ -41,17 +42,23 @@ import org.bson.util.*;
 
 import java.util.*;
 
-float[] tem = new float[30];
-long[] time = new long[30];
 FindIterable<Document> result, result_ascend;
 Document latest, oldest;
 int i = 0;
+int year, month, day, hour, minute;
+
+Calendar cal = Calendar.getInstance();
+Calendar cal2 = Calendar.getInstance();
+
 
 float plotX1, plotY1;
 float plotX2, plotY2;
 float labelX, labelY;
 float dataMin, dataMax;
 long timeMin, timeMax;
+
+ArrayList<Long> Time = new ArrayList<Long>();
+ArrayList<Float> Tem = new ArrayList<Float>();
 
 MongoClient mongoClient = new MongoClient("150.89.234.253", 27018);
 
@@ -63,20 +70,27 @@ MongoCollection<Document> collection = database.getCollection("netatmotest");
 void setup(){
   size(640, 480);
   frameRate(10);
-        
-  FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(30);
-  latest = result.first();
   
-  i = tem.length-1;
+  cal.set(year, month, day);
+  Date d = cal.getTime();
+  
+  cal.set(year, month, day, hour, minute);
+  Date d2 = cal.getTime();
+
+        
+  FindIterable<Document> result = collection.find(Filters.and(Filters.gte("date",d), Filters.lte("date",d2))).sort(Sorts.descending("date"));
+  FindIterable<Document> result_ascend = collection.find().sort(Sorts.descending("date")).sort(Sorts.ascending("date"));
+  latest = result.first();
+  oldest = result_ascend.first();
+  
+  
   for(Document doc : result){
     float a = doc.getDouble("tem").floatValue();
-    tem[i] = a;
-    
-    Date d = doc.getDate("date");
-    long b = d.getTime();
-    println("TIME[" + i + "]: " + b);
-    time[i] = b;
-    i--;
+    Tem.add(a);
+  
+    Date c = doc.getDate("date");
+    long b = c.getTime();  
+    Time.add(b);
   }
   
   plotX1 = 120; 
@@ -86,22 +100,17 @@ void setup(){
   plotY2 = height - 70;
   labelY = height - 25;
   
+  
   Date timemax = latest.getDate("date");
   timeMax = timemax.getTime();
-  println("MAX:" + timeMax);
-  timeMin = timemax.getTime();
-  for(i = 0; i < 30; i++){
-    if(timeMin > time[i]){
-      timeMin = time[i];
-    }
-  }
-  println("MIN:" + timeMin);
+  Date timemin = oldest.getDate("date");
+  timeMin = timemin.getTime();
   
   dataMin = 0;
   dataMax = 0;
-  for(i = 0; i < tem.length; i++){
-    if ( dataMax < tem[i]){
-      dataMax = tem[i];
+  for(i = 0; i < Tem.size(); i++){
+    if ( dataMax < Tem.get(i)){
+      dataMax = Tem.get(i);
     }
   }
 }
@@ -123,7 +132,8 @@ void draw() {
   
   drawDataPoints();
   
-  text(""+timeMin+"~"+timeMax, (plotX1+plotX2)/2, plotY1-30);
+  println(timeMin);
+  println(timeMax);
 }
 
 //タイトルの表示
@@ -155,9 +165,10 @@ void drawTimeLabels() {
   stroke(224);
   strokeWeight(1);
   
-  for(int i = 0; i < tem.length; i++){
+  for(int i = 0; i < Tem.size(); i++){
     if(i == 0 || (i+1 % 5 == 0)){
-      float x = map(tem[i], timeMin, timeMax, plotX2, plotX2);
+      float x = map(Tem.get(i), timeMin, timeMax, plotX2, plotX2);
+      text(Time.get(i), x, plotY2 + textAscent() + 10);
       line(x,plotY1, x, plotY2);
     }
   }
@@ -195,12 +206,13 @@ void drawVolumeLabels() {
 //指定した配列をプロットする
 void drawDataPoints() {
   beginShape();
-  for (int row = 0; row < tem.length; row++) {
+  for (int row = 0; row < Tem.size(); row++) {
       
-      float x = map(time[row], timeMin, timeMax, plotX1, plotX2);
-      float y = map(tem[row], dataMin, 35, plotY2, plotY1);
+      float x = map(Time.get(row), timeMin, timeMax, plotX1, plotX2);
+      float y = map(Tem.get(row), dataMin, 35, plotY2, plotY1);
       ellipse(x,y,4,4);
-      println(tem[row]);
+      vertex(x,y);
+      println(Tem.get(row));
   }
   endShape();
 }

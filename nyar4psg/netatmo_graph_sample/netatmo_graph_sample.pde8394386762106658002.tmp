@@ -65,7 +65,9 @@ void setup(){
   frameRate(10);
         
   FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(30);
+  FindIterable<Document> result_ascend = collection.find().sort(Sorts.descending("date")).limit(30).sort(Sorts.ascending("date"));
   latest = result.first();
+  oldest = result_ascend.first();
   
   i = tem.length-1;
   for(Document doc : result){
@@ -74,7 +76,6 @@ void setup(){
     
     Date d = doc.getDate("date");
     long b = d.getTime();
-    println("TIME[" + i + "]: " + b);
     time[i] = b;
     i--;
   }
@@ -88,14 +89,8 @@ void setup(){
   
   Date timemax = latest.getDate("date");
   timeMax = timemax.getTime();
-  println("MAX:" + timeMax);
-  timeMin = timemax.getTime();
-  for(i = 0; i < 30; i++){
-    if(timeMin > time[i]){
-      timeMin = time[i];
-    }
-  }
-  println("MIN:" + timeMin);
+  Date timemin = oldest.getDate("date");
+  timeMin = timemin.getTime();
   
   dataMin = 0;
   dataMax = 0;
@@ -123,7 +118,7 @@ void draw() {
   
   drawDataPoints();
   
-  text(""+timeMin+"~"+timeMax, (plotX1+plotX2)/2, plotY1-30);
+  text(""+timeMin+"～"+timeMax, (plotX1+plotX2)/2, plotY1-30);
 }
 
 //タイトルの表示
@@ -158,6 +153,7 @@ void drawTimeLabels() {
   for(int i = 0; i < tem.length; i++){
     if(i == 0 || (i+1 % 5 == 0)){
       float x = map(tem[i], timeMin, timeMax, plotX2, plotX2);
+      text(time[i], x, plotY2 + textAscent() + 10);
       line(x,plotY1, x, plotY2);
     }
   }
