@@ -361,6 +361,7 @@ void drawDataPoints() {
         float y1 = map(Humid[row], dataMin, 50, plotY2, plotY1);
         
         ellipse(x1,y1,4,4);
+        strokeWeight(5);
         line(x0,y0,x1,y1);
       }
       float x = map(time[row], timeMin, timeMax, plotX1, plotX2);
@@ -370,6 +371,7 @@ void drawDataPoints() {
       float y1 = map(Humid[row-1], dataMin, 50, plotY2, plotY1);
       
       ellipse(x,y,4,4);
+      strokeWeight(5);
       line(x1,y1,x,y);
       println(Humid[row]);
   }
