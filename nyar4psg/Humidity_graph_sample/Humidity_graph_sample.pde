@@ -1,3 +1,4 @@
+
 import com.mongodb.*;
 import com.mongodb.annotations.*;
 import com.mongodb.assertions.*;
@@ -42,7 +43,7 @@ import org.bson.util.*;
 import java.util.*;
 import java.text.*;
 
-float[] tem = new float[45];
+float[] Humid = new float[45];
 long[] time = new long[45];
 FindIterable<Document> result, result_ascend;
 Document latest, oldest;
@@ -68,10 +69,10 @@ void setup(){
   FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(45);
   latest = result.first();
   
-  i = tem.length-1;
+  i = Humid.length-1;
   for(Document doc : result){
-    float a = doc.getDouble("tem").floatValue();
-    tem[i] = a;
+    int a = doc.getInteger("Humidity");
+    Humid[i] = a;
     
     Date d = doc.getDate("date");
     long b = d.getTime();
@@ -100,9 +101,9 @@ void setup(){
   
   dataMin = 0;
   dataMax = 0;
-  for(i = 0; i < tem.length; i++){
-    if ( dataMax < tem[i]){
-      dataMax = tem[i];
+  for(i = 0; i < Humid.length; i++){
+    if ( dataMax < Humid[i]){
+      dataMax = Humid[i];
     }
   }
 }
@@ -136,7 +137,7 @@ void drawTitle(){
   fill(0);
   textSize(20);
   textAlign(LEFT);
-  text("Temperature History", plotX1,plotY1-10);
+  text("Humidity History", plotX1,plotY1-10);
 }
 
 //グラフのそれぞれの軸のラベルの表示
@@ -146,7 +147,7 @@ void drawAxisLabels(){
   textLeading(15);
   
   textAlign(CENTER, CENTER);
-  text("Temperature", labelX, (plotY1+plotY2)/2);
+  text("Humidity", labelX, (plotY1+plotY2)/2);
   textAlign(CENTER);
   text("Time", (plotX1+plotX2)/2, labelY);
 }
@@ -160,9 +161,9 @@ void drawTimeLabels() {
   stroke(224);
   strokeWeight(1);
   
-  for(int i = 0; i < tem.length; i++){
+  for(int i = 0; i < Humid.length; i++){
     if(i == 0 || (i+1 % 5 == 0)){
-      float x = map(tem[i], timeMin, timeMax, plotX2, plotX2);
+      float x = map(Humid[i], timeMin, timeMax, plotX2, plotX2);
       line(x,plotY1, x, plotY2);
     }
   }
@@ -177,13 +178,13 @@ void drawVolumeLabels() {
   stroke(128);
   strokeWeight(1);
  
-  for (float v = dataMin; v <= 35; v += 5) {
+  for (float v = dataMin; v <= 50; v += 5) {
     if (v % 5 == 0) {
-      float y = map(v, dataMin, 35, plotY2, plotY1);  
+      float y = map(v, dataMin, 50, plotY2, plotY1);  
       if (v % 10 == 0) {
         if (v == dataMin) {
           textAlign(RIGHT);
-        } else if (v == 35) {
+        } else if (v == 50) {
           textAlign(RIGHT, TOP);
         } else {
           textAlign(RIGHT, CENTER);
@@ -201,24 +202,24 @@ void drawVolumeLabels() {
 void drawDataPoints() {
   beginShape();
   float x0 = map(time[0], timeMin, timeMax, plotX1, plotX2);
-  float y0 = map(tem[0], dataMin, 35, plotY2, plotY1);
-  for (int row = 1; row < tem.length; row++) {
+  float y0 = map(Humid[0], dataMin, 50, plotY2, plotY1);
+  for (int row = 1; row < Humid.length; row++) {
       if(row == 1){
         float x1 = map(time[row], timeMin, timeMax, plotX1, plotX2);
-        float y1 = map(tem[row], dataMin, 35, plotY2, plotY1);
+        float y1 = map(Humid[row], dataMin, 50, plotY2, plotY1);
         
         ellipse(x1,y1,4,4);
         line(x0,y0,x1,y1);
       }
       float x = map(time[row], timeMin, timeMax, plotX1, plotX2);
-      float y = map(tem[row], dataMin, 35, plotY2, plotY1);
+      float y = map(Humid[row], dataMin, 50, plotY2, plotY1);
       
       float x1 = map(time[row-1], timeMin, timeMax, plotX1, plotX2);
-      float y1 = map(tem[row-1], dataMin, 35, plotY2, plotY1);
+      float y1 = map(Humid[row-1], dataMin, 50, plotY2, plotY1);
       
       ellipse(x,y,4,4);
       line(x1,y1,x,y);
-      println(tem[row]);
+      println(Humid[row]);
   }
   endShape();
 }
