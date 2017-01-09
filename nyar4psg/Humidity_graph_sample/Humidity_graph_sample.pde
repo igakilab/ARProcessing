@@ -43,7 +43,7 @@ import org.bson.util.*;
 import java.util.*;
 import java.text.*;
 
-float[] Humid = new float[45];
+int[] Humid = new int[45];
 long[] time = new long[45];
 FindIterable<Document> result, result_ascend;
 Document latest, oldest;
@@ -129,7 +129,7 @@ void draw() {
   String timeMinStr = df.format(timeMin);
   String timeMaxStr = df.format(timeMax);
   
-  text(""+timeMinStr+"~"+timeMaxStr, (plotX1+plotX2)/2, plotY1-35);
+  text(""+timeMinStr+"~"+timeMaxStr, (plotX1+plotX2)/2, plotY1-40);
 }
 
 //タイトルの表示

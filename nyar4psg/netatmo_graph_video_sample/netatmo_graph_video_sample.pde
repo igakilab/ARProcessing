@@ -1,3 +1,18 @@
+import controlP5.*;
+
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+
+import jp.nyatla.nyar4psg.*;
+import jp.nyatla.nyar4psg.utils.*;
+
+import processing.video.*;
+
 import com.mongodb.*;
 import com.mongodb.annotations.*;
 import com.mongodb.assertions.*;
@@ -42,10 +57,18 @@ import org.bson.util.*;
 import java.util.*;
 import java.text.*;
 
+ControlP5 Button;
+boolean aa = true, bb = false;
+Capture cam;
+MultiMarker nya;
+Minim minim;  //Minim型変数であるminimの宣言
+AudioPlayer player;  //サウンドデータ格納用の変数
+
+int[] Humid = new int[45];
 float[] tem = new float[45];
 long[] time = new long[45];
 FindIterable<Document> result, result_ascend;
-Document latest, oldest;
+Document latest;
 int i = 0;
 
 float plotX1, plotY1;
@@ -62,9 +85,28 @@ MongoCollection<Document> collection = database.getCollection("netatmotest");
 
 
 void setup(){
-  size(640, 480);
-  frameRate(10);
-        
+  size(640, 480, P3D);
+  colorMode(RGB, 100);
+  println(MultiMarker.VERSION);
+  cam=new Capture(this, 640, 480);
+  nya=new MultiMarker(this, width, height, "../../data/camera_para.dat", NyAR4PsgConfig.CONFIG_PSG);
+  nya.addNyIdMarker(0, 80);
+  cam.start();
+  
+  Button = new ControlP5(this);
+  Button.addButton("enviroment")
+        .setValue(0)
+        .setPosition(10,10)
+        .setSize(50,20);
+  
+  Button.addButton("graph")
+        .setValue(100)
+        .setPosition(70,10)
+        .setSize(60,10);
+  
+  minim = new Minim(this);  //初期化
+  player = minim.loadFile("button01a.mp3");  
+  
   FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(45);
   latest = result.first();
   
@@ -72,6 +114,9 @@ void setup(){
   for(Document doc : result){
     float a = doc.getDouble("tem").floatValue();
     tem[i] = a;
+    
+    int c = doc.getInteger("Humidity");
+    Humid[i] = c;
     
     Date d = doc.getDate("date");
     long b = d.getTime();
@@ -108,27 +153,135 @@ void setup(){
 }
 
 
-void draw() {
-  background(224);
+void draw(){
+  if (cam.available() !=true) {
+    return;
+  }
+  cam.read();
+  nya.detect(cam);
+  background(0);
+  nya.drawBackground(cam);//frustumを考慮した背景描画
+  if ((!nya.isExist(0))) {
+    return;
+  }
+  nya.beginTransform(0);
+  fill(0,0,225);
+  translate(0,0,20);
   
-  fill(255);
-  rectMode(CORNERS);
-  noStroke();
-  rect(plotX1, plotY1, plotX2, plotY2);
+  if( aa ){
+    fill(255,255,255);
+    translate(-70, -100,-10);
+    rect(0,0,150,150);
+    translate(70,100,10);
+    
+    float tem  = 0.0;
+    int i = 0;
+    Integer Humidity = 0, CO2 = 0, Noise = 0;
+    
+    
+    tem = latest.getDouble("tem").floatValue();
+    Humidity = latest.getInteger("Humidity");
+    CO2 = latest.getInteger("CO2");
+    Noise = latest.getInteger("Noise");
+    
+    fill(0);
+    
+    rotateX(PI);
+    rotateY(PI);
+    
+    fill(0,0,0);
+    translate(50,0,0);
+    if( tem >= 26){
+      fill(255,0,0);    
+    }else if( tem < 22){
+      fill(0,0,255);
+    }
+    else {
+      fill(0,255,0);
+    }
+    text("temperature : "+tem+"℃", 0, 0);
+    
+    if( Humidity > 60){
+      fill(255,0,0);    
+    }else if( tem < 38){
+      fill(0,0,255);
+    }
+    else {
+      fill(0,255,0);
+    }
+    text("Humidity : "+Humidity+"%", 0, 10);
+    
+    if( CO2 > 1500){
+      fill(255,0,0);    
+    }else if( CO2 > 1000){
+      fill(255,255,0);
+    }else if( CO2 > 700){
+      fill(0,255,0);
+    }else{
+      fill(0,0,255);
+    }
+    text("CO2 : "+CO2+"ppm", 0, 20);
+    
+    if( Noise > 60){
+      fill(255,0,0);
+    }else if( Noise > 50){
+      fill(40,163,11);
+    }else{
+      fill(0,0,255);
+    }
+    text("Noise : "+Noise+"dB", 0, 30);
+    
+    translate(-110,0, 0);
+    box(10,10,Noise*6);
+    
+    translate(0,50,0);
+    
+    sphere(10);
+    translate(0,-50,0);
+    
+  }
   
-  drawTitle();
-  
-  drawAxisLabels();
-  drawTimeLabels();
-  drawVolumeLabels();
-  
-  drawDataPoints();
-  
-  DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-  String timeMinStr = df.format(timeMin);
-  String timeMaxStr = df.format(timeMax);
-  
-  text(""+timeMinStr+"~"+timeMaxStr, (plotX1+plotX2)/2, plotY1-40);
+  if( bb ){
+    fill(255,255,255);
+    translate(-150, -150,-10);
+    rect(0,0,300,240);
+    translate(150,150,10);
+    
+    translate(150,100,5);
+    scale(0.5);
+    
+    rotateX(PI);
+    rotateY(PI);
+    //rotateZ(PI);
+    
+    fill(255);
+    rectMode(CORNERS);
+    noStroke();
+    rect(plotX1, plotY1, plotX2, plotY2);
+    
+    drawTitle();
+    
+    drawAxisLabels();
+    drawTimeLabels();
+    drawVolumeLabels();
+    
+    drawDataPoints();
+    
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    String timeMinStr = df.format(timeMin);
+    String timeMaxStr = df.format(timeMax);
+    
+    text(""+timeMinStr+"~"+timeMaxStr, (plotX1+plotX2)/2, plotY1-40);
+  }
+  nya.endTransform();
+}
+
+void enviroment(){
+  aa = !aa;
+}
+
+void graph(){
+  bb = !bb;
 }
 
 //タイトルの表示
@@ -136,7 +289,7 @@ void drawTitle(){
   fill(0);
   textSize(20);
   textAlign(LEFT);
-  text("Temperature History", plotX1,plotY1-10);
+  text("Humidity History", plotX1,plotY1-10);
 }
 
 //グラフのそれぞれの軸のラベルの表示
@@ -146,7 +299,7 @@ void drawAxisLabels(){
   textLeading(15);
   
   textAlign(CENTER, CENTER);
-  text("Temperature", labelX, (plotY1+plotY2)/2);
+  text("Humidity", labelX, (plotY1+plotY2)/2);
   textAlign(CENTER);
   text("Time", (plotX1+plotX2)/2, labelY);
 }
@@ -160,9 +313,9 @@ void drawTimeLabels() {
   stroke(224);
   strokeWeight(1);
   
-  for(int i = 0; i < tem.length; i++){
+  for(int i = 0; i < Humid.length; i++){
     if(i == 0 || (i+1 % 5 == 0)){
-      float x = map(tem[i], timeMin, timeMax, plotX2, plotX2);
+      float x = map(Humid[i], timeMin, timeMax, plotX2, plotX2);
       line(x,plotY1, x, plotY2);
     }
   }
@@ -177,13 +330,13 @@ void drawVolumeLabels() {
   stroke(128);
   strokeWeight(1);
  
-  for (float v = dataMin; v <= 35; v += 5) {
+  for (float v = dataMin; v <= 50; v += 5) {
     if (v % 5 == 0) {
-      float y = map(v, dataMin, 35, plotY2, plotY1);  
+      float y = map(v, dataMin, 50, plotY2, plotY1);  
       if (v % 10 == 0) {
         if (v == dataMin) {
           textAlign(RIGHT);
-        } else if (v == 35) {
+        } else if (v == 50) {
           textAlign(RIGHT, TOP);
         } else {
           textAlign(RIGHT, CENTER);
@@ -201,24 +354,24 @@ void drawVolumeLabels() {
 void drawDataPoints() {
   beginShape();
   float x0 = map(time[0], timeMin, timeMax, plotX1, plotX2);
-  float y0 = map(tem[0], dataMin, 35, plotY2, plotY1);
-  for (int row = 1; row < tem.length; row++) {
+  float y0 = map(Humid[0], dataMin, 50, plotY2, plotY1);
+  for (int row = 1; row < Humid.length; row++) {
       if(row == 1){
         float x1 = map(time[row], timeMin, timeMax, plotX1, plotX2);
-        float y1 = map(tem[row], dataMin, 35, plotY2, plotY1);
+        float y1 = map(Humid[row], dataMin, 50, plotY2, plotY1);
         
         ellipse(x1,y1,4,4);
         line(x0,y0,x1,y1);
       }
       float x = map(time[row], timeMin, timeMax, plotX1, plotX2);
-      float y = map(tem[row], dataMin, 35, plotY2, plotY1);
+      float y = map(Humid[row], dataMin, 50, plotY2, plotY1);
       
       float x1 = map(time[row-1], timeMin, timeMax, plotX1, plotX2);
-      float y1 = map(tem[row-1], dataMin, 35, plotY2, plotY1);
+      float y1 = map(Humid[row-1], dataMin, 50, plotY2, plotY1);
       
       ellipse(x,y,4,4);
       line(x1,y1,x,y);
-      println(tem[row]);
+      println(Humid[row]);
   }
   endShape();
 }
