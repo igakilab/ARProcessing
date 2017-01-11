@@ -1,3 +1,5 @@
+
+
 import controlP5.*;
 
 import ddf.minim.*;
@@ -64,8 +66,7 @@ MultiMarker nya;
 Minim minim;  //Minim型変数であるminimの宣言
 AudioPlayer player;  //サウンドデータ格納用の変数
 
-int[] Humid = new int[45];
-float[] tem = new float[45];
+float[] co2 = new float[45];
 long[] time = new long[45];
 FindIterable<Document> result, result_ascend;
 Document latest;
@@ -110,14 +111,11 @@ void setup(){
   FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(45);
   latest = result.first();
   
-  i = tem.length-1;
+  i = co2.length-1;
   for(Document doc : result){
-    float a = doc.getDouble("tem").floatValue();
-    tem[i] = a;
-    
-    int c = doc.getInteger("Humidity");
-    Humid[i] = c;
-    
+    float a = doc.getInteger("CO2").floatValue();
+    co2[i] = a;
+        
     Date d = doc.getDate("date");
     long b = d.getTime();
     println("TIME[" + i + "]: " + b);
@@ -145,9 +143,9 @@ void setup(){
   
   dataMin = 0;
   dataMax = 0;
-  for(i = 0; i < tem.length; i++){
-    if ( dataMax < tem[i]){
-      dataMax = tem[i];
+  for(i = 0; i < co2.length; i++){
+    if ( dataMax < co2[i]){
+      dataMax = co2[i];
     }
   }
 }
@@ -289,7 +287,7 @@ void drawTitle(){
   fill(0);
   textSize(20);
   textAlign(LEFT);
-  text("Humidity History", plotX1,plotY1-10);
+  text("CO2 History", plotX1,plotY1-10);
 }
 
 //グラフのそれぞれの軸のラベルの表示
@@ -299,7 +297,7 @@ void drawAxisLabels(){
   textLeading(15);
   
   textAlign(CENTER, CENTER);
-  text("Humidity", labelX, (plotY1+plotY2)/2);
+  text("CO2", labelX, (plotY1+plotY2)/2);
   textAlign(CENTER);
   text("Time", (plotX1+plotX2)/2, labelY);
 }
@@ -313,9 +311,9 @@ void drawTimeLabels() {
   stroke(224);
   strokeWeight(1);
   
-  for(int i = 0; i < Humid.length; i++){
-    if(i == 0 || (i+1 % 5 == 0)){
-      float x = map(Humid[i], timeMin, timeMax, plotX2, plotX2);
+  for(int i = 0; i < co2.length; i++){
+    if(i == 0 || (i+1 % 50 == 0)){
+      float x = map(co2[i], timeMin, timeMax, plotX2, plotX2);
       line(x,plotY1, x, plotY2);
     }
   }
@@ -330,13 +328,13 @@ void drawVolumeLabels() {
   stroke(128);
   strokeWeight(1);
  
-  for (float v = dataMin; v <= 50; v += 5) {
-    if (v % 5 == 0) {
-      float y = map(v, dataMin, 50, plotY2, plotY1);  
-      if (v % 10 == 0) {
+  for (float v = dataMin; v <= 2000; v += 50) {
+    if (v % 50 == 0) {
+      float y = map(v, dataMin, 2000, plotY2, plotY1);  
+      if (v % 100 == 0) {
         if (v == dataMin) {
           textAlign(RIGHT);
-        } else if (v == 50) {
+        } else if (v == 2000) {
           textAlign(RIGHT, TOP);
         } else {
           textAlign(RIGHT, CENTER);
@@ -354,11 +352,11 @@ void drawVolumeLabels() {
 void drawDataPoints() {
   beginShape();
   float x0 = map(time[0], timeMin, timeMax, plotX1, plotX2);
-  float y0 = map(Humid[0], dataMin, 50, plotY2, plotY1);
-  for (int row = 1; row < Humid.length; row++) {
+  float y0 = map(co2[0], dataMin, 2000, plotY2, plotY1);
+  for (int row = 1; row < co2.length; row++) {
       if(row == 1){
         float x1 = map(time[row], timeMin, timeMax, plotX1, plotX2);
-        float y1 = map(Humid[row], dataMin, 50, plotY2, plotY1);
+        float y1 = map(co2[row], dataMin, 2000, plotY2, plotY1);
         
         translate(0,0,5);
         ellipse(x1,y1,4,4);
@@ -367,17 +365,17 @@ void drawDataPoints() {
         translate(0,0,-5);
       }
       float x = map(time[row], timeMin, timeMax, plotX1, plotX2);
-      float y = map(Humid[row], dataMin, 50, plotY2, plotY1);
+      float y = map(co2[row], dataMin, 2000, plotY2, plotY1);
       
       float x1 = map(time[row-1], timeMin, timeMax, plotX1, plotX2);
-      float y1 = map(Humid[row-1], dataMin, 50, plotY2, plotY1);
+      float y1 = map(co2[row-1], dataMin, 2000, plotY2, plotY1);
       
       translate(0,0,5);
       ellipse(x,y,4,4);
       strokeWeight(5);
       line(x1,y1,x,y);
       translate(0,0,-5);
-      println(Humid[row]);
+      println(co2[row]);
   }
   endShape();
 }

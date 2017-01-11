@@ -1,4 +1,10 @@
-import controlP5.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
 
 import jp.nyatla.nyar4psg.*;
 import jp.nyatla.nyar4psg.utils.*;
@@ -46,14 +52,11 @@ import org.bson.json.*;
 import org.bson.types.*;
 import org.bson.util.*;
 
-ControlP5 Button;
 Capture cam;
 MultiMarker nya;
-boolean aa = true, bb = false;
-float[] tem;
 FindIterable<Document> result;
 Document latest;
-int i = 0;
+int id0,id1;
 
 MongoClient mongoClient = new MongoClient("150.89.234.253", 27018);
 
@@ -67,31 +70,16 @@ void setup(){
   println(MultiMarker.VERSION);
   cam=new Capture(this, 640, 480);
   nya=new MultiMarker(this, width, height, "../../data/camera_para.dat", NyAR4PsgConfig.CONFIG_PSG);
-  nya.addNyIdMarker(0, 80);
+  id0 = nya.addNyIdMarker(0, 80);
+  id1 = nya.addNyIdMarker(1, 80);
   cam.start();
   
-  Button = new ControlP5(this);
-  Button.addButton("now")
-        .setValue(0)
-        .setPosition(10,10)
-        .setSize(50,20);
   
-  Button.addButton("graph")
-        .setValue(100)
-        .setPosition(70,10)
-        .setSize(60,10);
-  
-  float tem[] = new float[30];
-        
+     
   FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(30);
   latest = result.first();
   
-  for(Document doc : result){
-    for(i = tem.length-1; i >= 0; i--){
-      float a = doc.getDouble("tem").floatValue();
-      tem[i] = a;
-    }
-  }
+  mongoClient.close();
 }
 
 
@@ -103,21 +91,35 @@ void draw(){
   nya.detect(cam);
   background(0);
   nya.drawBackground(cam);//frustumを考慮した背景描画
-  if ((!nya.isExist(0))) {
+  if ((!nya.isExist(id0))&&(!nya.isExist(id1))) {
     return;
+  }else if(nya.isExist(id0)){
+  nya.beginTransform(id0);
+  
+  environment();
+
+  nya.endTransform();
+  }else if(nya.isExist(id1)){
+  nya.beginTransform(id1);
+  
+  environment();
+
+  nya.endTransform();
   }
-  nya.beginTransform(0);
-  fill(0,0,225);
+
+}
+
+void environment(){
+    fill(0,0,225);
   translate(0,0,20);
   
-  if( aa ){
+
     fill(255,255,255);
     translate(-150, -150,-10);
     rect(0,0,300,300);
     translate(150,150,10);
     
     float tem  = 0.0;
-    int i = 0;
     Integer Humidity = 0, CO2 = 0, Noise = 0;
     
     
@@ -164,11 +166,9 @@ void draw(){
     text("CO2 : "+CO2+"ppm", 0, 20);
     
     if( Noise > 60){
-      fill(255,0,0);    
-    }else if( Noise > 55){
-      fill(255,255,0);
+      fill(255,0,0);
     }else if( Noise > 50){
-      fill(40,163,11);
+      fill(0,255,0);
     }else{
       fill(0,0,255);
     }
@@ -177,25 +177,10 @@ void draw(){
     translate(-50,0, 0);
     box(10,10,Noise*6);
     
+    
     translate(0,50,0);
-    
-    sphere(10);
-    translate(0,-50,0);
-    
-  }
-  
-  if( bb ){
-    
-  }
-    
-  
-  nya.endTransform();
-}
-
-void now(){
-  aa = !aa;
-}
-
-void graph(){
-  bb = !bb;
+    fill(0,0,0);
+    text("CO2 concentration",-30,25);
+    fill(255,255,0,CO2/15);
+    ellipse(0,50,50,50);
 }
