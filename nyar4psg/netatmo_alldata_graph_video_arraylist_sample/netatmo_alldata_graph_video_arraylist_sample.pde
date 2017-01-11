@@ -1,3 +1,4 @@
+
 import controlP5.*;
 
 import ddf.minim.*;
@@ -64,11 +65,11 @@ MultiMarker nya;
 Minim minim;  //Minim型変数であるminimの宣言
 AudioPlayer player;  //サウンドデータ格納用の変数
 
-float[] Humid = new float[145];
-float[] tem = new float[145];
-float[] co2 = new float[145];
-float[] noise = new float[145];
-long[] time = new long[145];
+ArrayList<Float> Humid = new ArrayList<Float>();
+ArrayList<Float> tem =new ArrayList<Float>();
+ArrayList<Float> co2 = new ArrayList<Float>();
+ArrayList<Float> noise = new ArrayList<Float>();
+ArrayList<Long> time = new ArrayList<Long>();
 FindIterable<Document> result, result_ascend;
 Document latest;
 int i = 0;
@@ -79,6 +80,11 @@ float plotX2, plotY2;
 float labelX, labelY;
 float dataMin, dataMax;
 long timeMin, timeMax;
+
+int year, month, day;
+
+Calendar cal = Calendar.getInstance();
+
 
 String Tem = "Temperature";
 String Hum = "Humidity";
@@ -116,29 +122,32 @@ void setup(){
         .setSize(60,10);
   
   minim = new Minim(this);  //初期化
-  player = minim.loadFile("button01a.mp3");  
+  player = minim.loadFile("button01a.mp3");
   
-  FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(145);
+  cal.set(year, month, day,0,0,0);
+  Date d1 = cal.getTime();
+  
+  FindIterable<Document> result = collection.find(Filters.gte("date",d1)).sort(Sorts.descending("date"));
   latest = result.first();
   
-  i = tem.length-1;
+  i = tem.size()-1;
   for(Document doc : result){
     float a = doc.getDouble("tem").floatValue();
-    tem[i] = a;
+    tem.add(a);
     
     float c = doc.getInteger("Humidity").floatValue();
-    Humid[i] = c;
+    Humid.add(c);
     
     float e = doc.getInteger("CO2").floatValue();
-    co2[i] = e;
+    co2.add(e);
     
     float f = doc.getInteger("Noise").floatValue();
-    noise[i] = f;
+    noise.add(f);
     
     Date d = doc.getDate("date");
     long b = d.getTime();
     println("TIME[" + i + "]: " + b);
-    time[i] = b;
+    time.add(b);
     i--;
   }
   
@@ -153,9 +162,9 @@ void setup(){
   timeMax = timemax.getTime();
   println("MAX:" + timeMax);
   timeMin = timemax.getTime();
-  for(i = 0; i < 145; i++){
-    if(timeMin > time[i]){
-      timeMin = time[i];
+  for(i = 0; i < time.size(); i++){
+    if(timeMin > time.get(i)){
+      timeMin = time.get(i);
     }
   }
   println("MIN:" + timeMin);
@@ -191,9 +200,9 @@ void draw(){
       graphsetup();
       
       dataMax = 0;
-      for(i = 0; i < tem.length; i++){
-        if ( dataMax < tem[i]){
-          dataMax = tem[i];
+      for(i = 0; i < tem.size(); i++){
+        if ( dataMax < tem.get(i)){
+          dataMax = tem.get(i);
         }
       }
     
@@ -229,9 +238,9 @@ void draw(){
       
       graphsetup();
       dataMax = 0;
-      for(i = 0; i < Humid.length; i++){
-        if ( dataMax < Humid[i]){
-          dataMax = Humid[i];
+      for(i = 0; i < Humid.size(); i++){
+        if ( dataMax < Humid.get(i)){
+          dataMax = Humid.get(i);
         }
       }
       
@@ -269,9 +278,9 @@ void draw(){
       
       graphsetup();
       dataMax = 0;
-      for(i = 0; i < co2.length; i++){
-        if ( dataMax < co2[i]){
-          dataMax = co2[i];
+      for(i = 0; i < co2.size(); i++){
+        if ( dataMax < co2.get(i)){
+          dataMax = co2.get(i);
         }
       }
       
@@ -309,9 +318,9 @@ void draw(){
       
       graphsetup();
       dataMax = 0;
-      for(i = 0; i < noise.length; i++){
-        if ( dataMax < noise[i]){
-          dataMax = noise[i];
+      for(i = 0; i < noise.size(); i++){
+        if ( dataMax < noise.get(i)){
+          dataMax = noise.get(i);
         }
       }
       
@@ -459,7 +468,7 @@ void drawAxisLabels(String a){
 }
 
 //グラフの横軸の表示
-void drawTimeLabels(float Humid[]) {
+void drawTimeLabels(ArrayList Humid) {
   fill(0);
   textSize(10);
   textAlign(CENTER);
@@ -467,9 +476,9 @@ void drawTimeLabels(float Humid[]) {
   stroke(224);
   strokeWeight(1);
   
-  for(int i = 0; i < Humid.length; i++){
+  for(int i = 0; i < Humid.size(); i++){
     if(i == 0 || (i+1 % 5 == 0)){
-      float x = map(Humid[i], timeMin, timeMax, plotX2, plotX2);
+      float x = map((float)Humid.get(i), timeMin, timeMax, plotX2, plotX2);
       line(x,plotY1, x, plotY2);
     }
   }
@@ -526,15 +535,15 @@ void drawVolumeLabels() {
 }
 
 //指定した配列をプロットする
-void drawDataPoints(float Humid[]) {
+void drawDataPoints(ArrayList Humid) {
   beginShape();
   if(dataMax <= 100){
-    float x0 = map(time[0], timeMin, timeMax, plotX1, plotX2);
-    float y0 = map(Humid[0], dataMin, 50, plotY2, plotY1);
-    for (int row = 1; row < Humid.length; row++) {
+    float x0 = map(time.get(0), timeMin, timeMax, plotX1, plotX2);
+    float y0 = map((float)Humid.get(0), dataMin, 50, plotY2, plotY1);
+    for (int row = 1; row < Humid.size(); row++) {
         if(row == 1){
-          float x1 = map(time[row], timeMin, timeMax, plotX1, plotX2);
-          float y1 = map(Humid[row], dataMin, dataMax+10, plotY2, plotY1);
+          float x1 = map(time.get(row), timeMin, timeMax, plotX1, plotX2);
+          float y1 = map((float)Humid.get(row), dataMin, dataMax+10, plotY2, plotY1);
           
           translate(0,0,5);
           ellipse(x1,y1,4,4);
@@ -542,26 +551,26 @@ void drawDataPoints(float Humid[]) {
           line(x0,y0,x1,y1);
           translate(0,0,-5);
         }
-        float x = map(time[row], timeMin, timeMax, plotX1, plotX2);
-        float y = map(Humid[row], dataMin, dataMax+10, plotY2, plotY1);
+        float x = map(time.get(row), timeMin, timeMax, plotX1, plotX2);
+        float y = map((float)Humid.get(row), dataMin, dataMax+10, plotY2, plotY1);
         
-        float x1 = map(time[row-1], timeMin, timeMax, plotX1, plotX2);
-        float y1 = map(Humid[row-1], dataMin, dataMax+10, plotY2, plotY1);
+        float x1 = map(time.get(row-1), timeMin, timeMax, plotX1, plotX2);
+        float y1 = map((float)Humid.get(row-1), dataMin, dataMax+10, plotY2, plotY1);
         
         translate(0,0,5);
         ellipse(x,y,4,4);
         strokeWeight(5);
         line(x1,y1,x,y);
         translate(0,0,-5);
-        println(Humid[row]);
+        println(Humid.get(row));
     }
   }else{
-    float x0 = map(time[0], timeMin, timeMax, plotX1, plotX2);
-    float y0 = map(Humid[0], dataMin, 50, plotY2, plotY1);
-    for (int row = 1; row < Humid.length; row++) {
+    float x0 = map(time.get(0), timeMin, timeMax, plotX1, plotX2);
+    float y0 = map((float)Humid.get(0), dataMin, 50, plotY2, plotY1);
+    for (int row = 1; row < Humid.size(); row++) {
         if(row == 1){
-          float x1 = map(time[row], timeMin, timeMax, plotX1, plotX2);
-          float y1 = map(Humid[row], dataMin, dataMax+100, plotY2, plotY1);
+          float x1 = map(time.get(row), timeMin, timeMax, plotX1, plotX2);
+          float y1 = map((float)Humid.get(row), dataMin, dataMax+100, plotY2, plotY1);
           
           translate(0,0,5);
           ellipse(x1,y1,4,4);
@@ -569,11 +578,11 @@ void drawDataPoints(float Humid[]) {
           line(x0,y0,x1,y1);
           translate(0,0,-5);
         }
-        float x = map(time[row], timeMin, timeMax, plotX1, plotX2);
-        float y = map(Humid[row], dataMin, dataMax+100, plotY2, plotY1);
+        float x = map(time.get(row), timeMin, timeMax, plotX1, plotX2);
+        float y = map((float)Humid.get(row), dataMin, dataMax+100, plotY2, plotY1);
         
-        float x1 = map(time[row-1], timeMin, timeMax, plotX1, plotX2);
-        float y1 = map(Humid[row-1], dataMin, dataMax+100, plotY2, plotY1);
+        float x1 = map(time.get(row-1), timeMin, timeMax, plotX1, plotX2);
+        float y1 = map((float)Humid.get(row-1), dataMin, dataMax+100, plotY2, plotY1);
         
         translate(0,0,5);
         ellipse(x,y,4,4);
@@ -581,7 +590,7 @@ void drawDataPoints(float Humid[]) {
         strokeWeight(5);
         line(x1,y1,x,y);
         translate(0,0,-5);
-        println(Humid[row]);
+        println(Humid.get(row));
     }
   }
   endShape();

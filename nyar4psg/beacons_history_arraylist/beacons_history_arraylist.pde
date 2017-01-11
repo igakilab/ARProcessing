@@ -45,14 +45,17 @@ import org.bson.json.*;
 import org.bson.types.*;
 import org.bson.util.*;
 
+import java.util.*;
+
 Capture cam;
 MultiMarker nya;
 int i= 0;
 PImage img;
 FindIterable<Document> result1, result2, result3;
 Document latest1, latest2, latest3;
-int month = month();
-int day = day();
+int year, month, day;
+
+Calendar cal = Calendar.getInstance();
 
 ArrayList<Float> beacons101x = new ArrayList<Float>();
 ArrayList<Float> beacons101y = new ArrayList<Float>();
@@ -75,8 +78,11 @@ void setup(){
   frameRate(20);
     
   img = loadImage("lab.PNG");
+  
+  cal.set(year, month, day, 0, 0, 0);
+  Date d = cal.getTime();
         
-  FindIterable<Document> result1 = collection.find(Filters.eq("minor" ,101)).sort(Sorts.descending("date"));
+  FindIterable<Document> result1 = collection.find(Filters.and(Filters.eq("minor" ,101),Filters.gte("date",d))).sort(Sorts.descending("date"));
   FindIterable<Document> result2 = collection.find(Filters.eq("minor" ,102)).sort(Sorts.descending("date"));
   FindIterable<Document> result3 = collection.find(Filters.eq("minor" ,103)).sort(Sorts.descending("date"));
 
@@ -129,7 +135,7 @@ void draw(){
     float x1 = beacons101x.get(beacons101x.size()-1);
     float y1 = beacons101y.get(beacons101x.size()-1);
     
-    fill(255,0,0);
+    fill(0,0,0);
     beaconsdata(x1,y1);
     i++;
   }
@@ -139,7 +145,6 @@ void draw(){
      float x1 = beacons101x.get(i);
      float y1 = beacons101y.get(i);
      
-     fill(255,0,255);
      beaconsdata(x1,y1);
      //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
      

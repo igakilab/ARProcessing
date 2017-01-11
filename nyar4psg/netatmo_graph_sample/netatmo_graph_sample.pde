@@ -42,8 +42,8 @@ import org.bson.util.*;
 import java.util.*;
 import java.text.*;
 
-float[] tem = new float[45];
-long[] time = new long[45];
+float[] tem = new float[145];
+long[] time = new long[145];
 FindIterable<Document> result, result_ascend;
 Document latest, oldest;
 int i = 0;
@@ -53,6 +53,8 @@ float plotX2, plotY2;
 float labelX, labelY;
 float dataMin, dataMax;
 long timeMin, timeMax;
+
+  int count = 0;
 
 MongoClient mongoClient = new MongoClient("150.89.234.253", 27018);
 
@@ -65,7 +67,7 @@ void setup(){
   size(640, 480);
   frameRate(10);
         
-  FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(45);
+  FindIterable<Document> result = collection.find().sort(Sorts.descending("date")).limit(145);
   latest = result.first();
   
   i = tem.length-1;
@@ -78,6 +80,7 @@ void setup(){
     println("TIME[" + i + "]: " + b);
     time[i] = b;
     i--;
+    count++;
   }
   
   plotX1 = 120; 
@@ -124,6 +127,9 @@ void draw() {
   
   drawDataPoints();
   
+  
+  println(count);
+  
   DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
   String timeMinStr = df.format(timeMin);
   String timeMaxStr = df.format(timeMax);
@@ -161,8 +167,8 @@ void drawTimeLabels() {
   strokeWeight(1);
   
   for(int i = 0; i < tem.length; i++){
-    if(i == 0 || (i+1 % 5 == 0)){
-      float x = map(tem[i], timeMin, timeMax, plotX2, plotX2);
+    float x = map(tem[i], timeMin, timeMax, plotX2, plotX2);
+    if(i == 0 || (i+1 % 5 == 0)){  
       line(x,plotY1, x, plotY2);
     }
   }
@@ -218,7 +224,7 @@ void drawDataPoints() {
       
       ellipse(x,y,4,4);
       line(x1,y1,x,y);
-      println(tem[row]);
+      println(row + ":" + tem[row] + "(" + x + ", " + y + ")");
   }
   endShape();
 }

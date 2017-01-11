@@ -43,6 +43,7 @@ import org.bson.io.*;
 import org.bson.json.*;
 import org.bson.types.*;
 import org.bson.util.*;
+import java.util.*;
 
 Capture cam;
 MultiMarker nya;
@@ -52,6 +53,10 @@ FindIterable<Document> result1, result2, result3;
 Document latest1, latest2, latest3;
 float x1 = 0.0,y1 = 0.0,x2 = 0.0,y2 = 0.0,x3 = 0.0,y3 = 0.0;
 float[] beacons101x,beacons101y;
+
+int year, month, day;
+
+Calendar cal = Calendar.getInstance();
 
 MongoClient mongoClient = new MongoClient("150.89.234.253", 27017);
 
@@ -74,10 +79,13 @@ void setup(){
   beacons101y = new float[30];
   
   img = loadImage("lab.PNG");
+  
+  cal.set(year, month, day);
+  Date d = cal.getTime();
         
-  FindIterable<Document> result1 = collection.find(Filters.eq("minor" ,101)).sort(Sorts.descending("date")).limit(30);
-  FindIterable<Document> result2 = collection.find(Filters.eq("minor" ,102)).sort(Sorts.descending("date")).limit(30);
-  FindIterable<Document> result3 = collection.find(Filters.eq("minor" ,103)).sort(Sorts.descending("date")).limit(30);
+  FindIterable<Document> result1 = collection.find(Filters.and(Filters.eq("minor" ,101),Filters.eq("date",d))).sort(Sorts.descending("date")).limit(30);
+  FindIterable<Document> result2 = collection.find(Filters.and(Filters.eq("minor" ,102),Filters.eq("date",d))).sort(Sorts.descending("date")).limit(30);
+  FindIterable<Document> result3 = collection.find(Filters.and(Filters.eq("minor" ,103),Filters.eq("date",d))).sort(Sorts.descending("date")).limit(30);
 
   latest1 = result1.first();
   latest2 = result2.first();
