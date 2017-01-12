@@ -92,13 +92,14 @@ void setup(){
   
   i = 0;
   for(Document doc : result1){
+    if(i%10 == 0){
+      float a = doc.getDouble("x").floatValue();
+      beacons101x.add(a);
     
-    float a = doc.getDouble("x").floatValue();
-    beacons101x.add(a);
-  
-    float b = doc.getDouble("y").floatValue();
-    beacons101y.add(b);
-    
+      float b = doc.getDouble("y").floatValue();
+      beacons101y.add(b);
+      i++;
+      }
   }
 
 }
@@ -152,8 +153,7 @@ void draw(){
 
      
      println(i);
-     println(x1);
-     println(y1);
+     println(x1+":"+y1);
     }
   //}
   }
