@@ -92,14 +92,14 @@ void setup(){
   
   i = 0;
   for(Document doc : result1){
-    if(i%10 == 0){
+    if(i%20 == 0){
       float a = doc.getDouble("x").floatValue();
       beacons101x.add(a);
     
       float b = doc.getDouble("y").floatValue();
       beacons101y.add(b);
-      i++;
-      }
+     }
+    i++;
   }
 
 }
@@ -120,7 +120,6 @@ void draw(){
   fill(0,0,225);
   translate(0,0,20);
   i = 0;
-
     
   beginShape(QUAD);
   textureMode(NORMAL);
@@ -132,28 +131,28 @@ void draw(){
   endShape();
     
     
-  if(i == beacons101x.size()-1){
-    float x1 = beacons101x.get(beacons101x.size()-1);
-    float y1 = beacons101y.get(beacons101x.size()-1);
+  if(i == 0){
+    float x1 = beacons101x.get(0);
+    float y1 = beacons101y.get(0);
     
-    fill(0,0,0);
+    fill(255,255,255);
     beaconsdata(x1,y1);
+    println(i+":"+x1+":"+y1);
     i++;
   }
-  if(i >= 0){
+  if(i > 0){
   //for(Document doc : result1){
-    for(i = beacons101x.size()-2; i >= 0; i--){
+    for(i= 1; i < beacons101x.size(); i++){
      float x1 = beacons101x.get(i);
      float y1 = beacons101y.get(i);
      
      beaconsdata(x1,y1);
      //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
      
-          drawline(x1,y1,beacons101x.get(i+1),beacons101y.get(i+1));
+     drawline(x1,y1,beacons101x.get(i-1),beacons101y.get(i-1));
 
      
-     println(i);
-     println(x1+":"+y1);
+     println(i+":"+x1+":"+y1);
     }
   //}
   }
