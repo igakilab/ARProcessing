@@ -124,7 +124,7 @@ void setup(){
   minim = new Minim(this);  //初期化
   player = minim.loadFile("button01a.mp3");
   
-  cal.set(year, month, day,0,0,0);
+  cal.set(year(), month()-1, day(),0,0,0);
   Date d1 = cal.getTime();
   
   FindIterable<Document> result = collection.find(Filters.gte("date",d1)).sort(Sorts.descending("date"));
