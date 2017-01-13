@@ -46,6 +46,7 @@ import org.bson.types.*;
 import org.bson.util.*;
 
 import java.util.*;
+import java.text.*;
 
 Capture cam;
 MultiMarker nya;
@@ -59,6 +60,10 @@ Calendar cal = Calendar.getInstance();
 
 ArrayList<Float> beacons101x = new ArrayList<Float>();
 ArrayList<Float> beacons101y = new ArrayList<Float>();
+ArrayList<Long> time = new ArrayList<Long>();
+
+long timeMin, timeMax;
+
 
 MongoClient mongoClient = new MongoClient("150.89.234.253", 27017);
 
@@ -79,9 +84,10 @@ void setup(){
     
   img = loadImage("lab.PNG");
   
-  cal.set(year, month, day, 0, 0, 0);
+  cal.set(year(), month()-1, day(), 0, 0, 0);
   Date d = cal.getTime();
-        
+  
+  println("FILTER DATE: " + d.toString());
   FindIterable<Document> result1 = collection.find(Filters.and(Filters.eq("minor" ,101),Filters.gte("date",d))).sort(Sorts.descending("date"));
   FindIterable<Document> result2 = collection.find(Filters.eq("minor" ,102)).sort(Sorts.descending("date"));
   FindIterable<Document> result3 = collection.find(Filters.eq("minor" ,103)).sort(Sorts.descending("date"));
@@ -98,9 +104,26 @@ void setup(){
     
       float b = doc.getDouble("y").floatValue();
       beacons101y.add(b);
+      
+      Date d1 = doc.getDate("date");
+      long b1 = d1.getTime();
+      println("TIME[" + i + "]: " + b1);
+      time.add(b1);
      }
     i++;
   }
+  
+  
+  Date timemax = latest1.getDate("date");
+  timeMax = timemax.getTime();
+  println("MAX:" + timeMax);
+  timeMin = timemax.getTime();
+  for(i = 0; i < time.size(); i++){
+    if(timeMin > time.get(i)){
+      timeMin = time.get(i);
+    }
+  }
+
 
 }
 
@@ -141,7 +164,6 @@ void draw(){
     i++;
   }
   if(i > 0){
-  //for(Document doc : result1){
     for(i= 1; i < beacons101x.size(); i++){
      float x1 = beacons101x.get(i);
      float y1 = beacons101y.get(i);
@@ -154,8 +176,28 @@ void draw(){
      
      println(i+":"+x1+":"+y1);
     }
-  //}
   }
+
+  rotateX(PI);
+  rotateY(PI);
+
+  beginShape(QUAD);
+  vertex(-105,150,1,1);
+  vertex(-105,130,1,0);
+  vertex(105,130,0,0);
+  vertex(105,150,0,1);
+  endShape();
+  
+  scale(0.7);
+  
+  translate(0,0,5);
+  fill(0,0,0);
+  DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+  String timeMinStr = df.format(timeMin);
+  String timeMaxStr = df.format(timeMax);
+  
+  text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+  translate(0,0,-5);
   
   nya.endTransform();
 } 

@@ -153,7 +153,7 @@ void setup(){
   timeMax = timemax.getTime();
   println("MAX:" + timeMax);
   timeMin = timemax.getTime();
-  for(i = 0; i < 145; i++){
+  for(i = 0; i < time.length; i++){
     if(timeMin > time[i]){
       timeMin = time[i];
     }
