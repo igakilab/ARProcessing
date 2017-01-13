@@ -98,7 +98,7 @@ void setup(){
   
   i = 0;
   for(Document doc : result1){
-    if(i%20 == 0){
+    if(i%5 == 0){
       float a = doc.getDouble("x").floatValue();
       beacons101x.add(a);
     
@@ -158,29 +158,46 @@ void draw(){
     float x1 = beacons101x.get(0);
     float y1 = beacons101y.get(0);
     
-    fill(255,255,255);
+    noStroke();
+    fill(255,0,0);
     beaconsdata(x1,y1);
     println(i+":"+x1+":"+y1);
     i++;
   }
   if(i > 0){
-    for(i= 1; i < beacons101x.size(); i++){
+    for(i= 1; i < beacons101x.size()-1; i++){
      float x1 = beacons101x.get(i);
      float y1 = beacons101y.get(i);
      
+     fill(0,0,0);
      beaconsdata(x1,y1);
      //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-     
+     stroke(0,0,0);
      drawline(x1,y1,beacons101x.get(i-1),beacons101y.get(i-1));
 
      
      println(i+":"+x1+":"+y1);
     }
+    
+    if(i == beacons101x.size()-1){
+      float x1 = beacons101x.get(beacons101x.size()-1);
+      float y1 = beacons101y.get(beacons101x.size()-1);
+      
+      noStroke();
+      fill(0,0,255);
+      beaconsdata(x1,y1);
+      stroke(0,0,0);
+      drawline(x1,y1,beacons101x.get(i-1),beacons101y.get(i-1));
+
+      println(i+":"+x1+":"+y1);
+    }
   }
 
   rotateX(PI);
   rotateY(PI);
-
+  
+  fill(255,255,255);
+  
   beginShape(QUAD);
   vertex(-105,150,1,1);
   vertex(-105,130,1,0);
@@ -207,10 +224,10 @@ void beaconsdata(float x, float y){
   float x_1, y_1, x1, y1;
   
   x_1 = x * -22.5;
-  y_1 = y * 21.739;
+  y_1 = y * -21.739;
   
-  x1 = 90 + x_1;
-  y1 = -75 + y_1;
+  x1 = 100 + x_1;
+  y1 = 125 + y_1;
   
   
   translate(x1,y1,0);
@@ -223,16 +240,16 @@ void drawline(float a, float b,float c, float d){
   float a2, b2, c2, d2;
   
   a1 = a * -22.5;
-  b1 = b * 21.739;
+  b1 = b * -21.739;
   
   c1 = c * -22.5;
-  d1 = d * 21.739;
+  d1 = d * -21.739;
   
-  a2 = 90 + a1;
-  b2 = -75 + b1;
+  a2 = 100 + a1;
+  b2 = 125 + b1;
   
-  c2 = 90 + c1;
-  d2 = -75 + d1;
+  c2 = 100 + c1;
+  d2 = 125 + d1;
   
   line(a2, b2, c2, d2);
 }
