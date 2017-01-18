@@ -281,6 +281,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result2){
     if(i%5 == 0){
@@ -297,6 +298,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result3){
     if(i%5 == 0){
@@ -313,6 +315,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result4){
     if(i%5 == 0){
@@ -329,6 +332,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result5){
     if(i%5 == 0){
@@ -345,6 +349,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result6){
     if(i%5 == 0){
@@ -361,6 +366,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result7){
     if(i%5 == 0){
@@ -377,6 +383,7 @@ void setup(){
      }
     i++;
   }
+  i= 0;
 
   for(Document doc : result8){
     if(i%5 == 0){
@@ -393,6 +400,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result9){
     if(i%5 == 0){
@@ -409,6 +417,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result10){
     if(i%5 == 0){
@@ -425,6 +434,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result11){
     if(i%5 == 0){
@@ -441,6 +451,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
 
   for(Document doc : result12){
     if(i%5 == 0){
@@ -457,6 +468,7 @@ void setup(){
      }
     i++;
   }
+  i = 0;
   
   if( latest1 != null ){
     Date timemax1 = latest1.getDate("date");
