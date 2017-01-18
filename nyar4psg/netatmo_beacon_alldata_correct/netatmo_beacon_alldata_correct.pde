@@ -802,6 +802,12 @@ void draw(){
     nya.beginTransform(id4);
     fill(0,0,225);
     translate(0,0,20);
+    
+    if( aa) {
+      environment();
+    }
+    
+    if( bb){
     i = 0;
     
     scale(1.3);
@@ -880,95 +886,102 @@ void draw(){
     
     text(""+timeMinStr+"~"+timeMaxStr, -140, 190);
     translate(0,0,-5);
-  
+    }
   
     nya.endTransform();
   }
+
   
     if(nya.isExist(id5)){
     nya.beginTransform(id5);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
     
-    scale(1.3);
+    if( aa) {
+      environment();
+    }
     
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
+    if( bb){
+      i = 0;
       
-    
-    if(latest2 != null){
-      if(i == 0){
-        float x1 = beacons102x.get(0);
-        float y1 = beacons102y.get(0);
+      scale(1.3);
+      
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
         
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons102x.size()-1; i++){
-         float x1 = beacons102x.get(i);
-         float y1 = beacons102y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons102x.get(i-1),beacons102y.get(i-1));
-    
-         
-         println(i+":"+x1+":"+y1);
-        }
-        
-        if(i == beacons102x.size()-1){
-          float x1 = beacons102x.get(beacons102x.size()-1);
-          float y1 = beacons102y.get(beacons102x.size()-1);
+      
+      if(latest2 != null){
+        if(i == 0){
+          float x1 = beacons102x.get(0);
+          float y1 = beacons102y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons102x.get(i-1),beacons102y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons102x.size()-1; i++){
+           float x1 = beacons102x.get(i);
+           float y1 = beacons102y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons102x.get(i-1),beacons102y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons102x.size()-1){
+            float x1 = beacons102x.get(beacons102x.size()-1);
+            float y1 = beacons102y.get(beacons102x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons102x.get(i-1),beacons102y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin2);
+      String timeMaxStr = df.format(timeMax2);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 190);
+      translate(0,0,-5);  
     }
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin2);
-    String timeMaxStr = df.format(timeMax2);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 190);
-    translate(0,0,-5);  
-    
     nya.endTransform();
   }
   
@@ -976,84 +989,91 @@ void draw(){
     nya.beginTransform(id6);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
     
-    scale(1.3);
-      
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest3 != null){
-      if(i == 0){
-        float x1 = beacons103x.get(0);
-        float y1 = beacons103y.get(0);
-        
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons103x.size()-1; i++){
-         float x1 = beacons103x.get(i);
-         float y1 = beacons103y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons103x.get(i-1),beacons103y.get(i-1));
+    if( aa) {
+      environment();
+    }
     
-         
-         println(i+":"+x1+":"+y1);
-        }
+    if( bb){
+      i = 0;
+      
+      scale(1.3);
         
-        if(i == beacons101x.size()-1){
-          float x1 = beacons103x.get(beacons103x.size()-1);
-          float y1 = beacons103y.get(beacons103x.size()-1);
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
+        
+      if(latest3 != null){
+        if(i == 0){
+          float x1 = beacons103x.get(0);
+          float y1 = beacons103y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons103x.get(i-1),beacons103y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons103x.size()-1; i++){
+           float x1 = beacons103x.get(i);
+           float y1 = beacons103y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons103x.get(i-1),beacons103y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons101x.size()-1){
+            float x1 = beacons103x.get(beacons103x.size()-1);
+            float y1 = beacons103y.get(beacons103x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons103x.get(i-1),beacons103y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin3);
+      String timeMaxStr = df.format(timeMax3);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
     }
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin3);
-    String timeMaxStr = df.format(timeMax3);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
   
     nya.endTransform();
   }
@@ -1062,85 +1082,92 @@ void draw(){
     nya.beginTransform(id7);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
     
-    scale(1.3);
+    if( aa) {
+      environment();
+    }
+    
+    if( bb){
+      i = 0;
       
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
+      scale(1.3);
+        
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
+        
       
-    
-    if(latest4 != null){
-      if(i == 0){
-        float x1 = beacons104x.get(0);
-        float y1 = beacons104y.get(0);
-        
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons104x.size()-1; i++){
-         float x1 = beacons104x.get(i);
-         float y1 = beacons104y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons104x.get(i-1),beacons104y.get(i-1));
-    
-         
-         println(i+":"+x1+":"+y1);
-        }
-        
-        if(i == beacons104x.size()-1){
-          float x1 = beacons104x.get(beacons104x.size()-1);
-          float y1 = beacons104y.get(beacons104x.size()-1);
+      if(latest4 != null){
+        if(i == 0){
+          float x1 = beacons104x.get(0);
+          float y1 = beacons104y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons104x.get(i-1),beacons104y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons104x.size()-1; i++){
+           float x1 = beacons104x.get(i);
+           float y1 = beacons104y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons104x.get(i-1),beacons104y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons104x.size()-1){
+            float x1 = beacons104x.get(beacons104x.size()-1);
+            float y1 = beacons104y.get(beacons104x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons104x.get(i-1),beacons104y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin4);
+      String timeMaxStr = df.format(timeMax4);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
     }
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin4);
-    String timeMaxStr = df.format(timeMax4);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
   
     nya.endTransform();
   }
@@ -1149,85 +1176,92 @@ void draw(){
     nya.beginTransform(id8);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
     
-    scale(1.3);
-      
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest5 != null){
-      if(i == 0){
-        float x1 = beacons105x.get(0);
-        float y1 = beacons105y.get(0);
-        
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons105x.size()-1; i++){
-         float x1 = beacons105x.get(i);
-         float y1 = beacons105y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons105x.get(i-1),beacons105y.get(i-1));
+    if( aa) {
+      environment();
+    }
     
-         
-         println(i+":"+x1+":"+y1);
-        }
+    if( bb){
+      i = 0;
+      
+      scale(1.3);
         
-        if(i == beacons105x.size()-1){
-          float x1 = beacons105x.get(beacons105x.size()-1);
-          float y1 = beacons105y.get(beacons105x.size()-1);
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
+        
+      if(latest5 != null){
+        if(i == 0){
+          float x1 = beacons105x.get(0);
+          float y1 = beacons105y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons105x.get(i-1),beacons105y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons105x.size()-1; i++){
+           float x1 = beacons105x.get(i);
+           float y1 = beacons105y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons105x.get(i-1),beacons105y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons105x.size()-1){
+            float x1 = beacons105x.get(beacons105x.size()-1);
+            float y1 = beacons105y.get(beacons105x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons105x.get(i-1),beacons105y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin5);
+      String timeMaxStr = df.format(timeMax5);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
     }
-  
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin5);
-    String timeMaxStr = df.format(timeMax5);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
   
     nya.endTransform();
   }
@@ -1236,84 +1270,90 @@ void draw(){
     nya.beginTransform(id9);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
+    if( aa) {
+      environment();
+    }
     
-    scale(1.3);
+    if( bb){
+      i = 0;
       
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest6 != null){
-      if(i == 0){
-        float x1 = beacons106x.get(0);
-        float y1 = beacons106y.get(0);
+      scale(1.3);
         
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons106x.size()-1; i++){
-         float x1 = beacons106x.get(i);
-         float y1 = beacons106y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons106x.get(i-1),beacons106y.get(i-1));
-    
-         
-         println(i+":"+x1+":"+y1);
-        }
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
         
-        if(i == beacons106x.size()-1){
-          float x1 = beacons106x.get(beacons106x.size()-1);
-          float y1 = beacons106y.get(beacons106x.size()-1);
+      if(latest6 != null){
+        if(i == 0){
+          float x1 = beacons106x.get(0);
+          float y1 = beacons106y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons106x.get(i-1),beacons106y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons106x.size()-1; i++){
+           float x1 = beacons106x.get(i);
+           float y1 = beacons106y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons106x.get(i-1),beacons106y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons106x.size()-1){
+            float x1 = beacons106x.get(beacons106x.size()-1);
+            float y1 = beacons106y.get(beacons106x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons106x.get(i-1),beacons106y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin6);
+      String timeMaxStr = df.format(timeMax6);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
     }
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin6);
-    String timeMaxStr = df.format(timeMax6);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
   
     nya.endTransform();
   }
@@ -1322,84 +1362,91 @@ void draw(){
     nya.beginTransform(id10);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
     
-    scale(1.3);
-      
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest7 != null){
-      if(i == 0){
-        float x1 = beacons107x.get(0);
-        float y1 = beacons107y.get(0);
-        
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons107x.size()-1; i++){
-         float x1 = beacons107x.get(i);
-         float y1 = beacons107y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons107x.get(i-1),beacons107y.get(i-1));
+    if( aa) {
+      environment();
+    }
     
-         
-         println(i+":"+x1+":"+y1);
-        }
+    if( bb){
+      i = 0;
+      
+      scale(1.3);
         
-        if(i == beacons107x.size()-1){
-          float x1 = beacons107x.get(beacons107x.size()-1);
-          float y1 = beacons107y.get(beacons107x.size()-1);
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
+        
+      if(latest7 != null){
+        if(i == 0){
+          float x1 = beacons107x.get(0);
+          float y1 = beacons107y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons107x.get(i-1),beacons107y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons107x.size()-1; i++){
+           float x1 = beacons107x.get(i);
+           float y1 = beacons107y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons107x.get(i-1),beacons107y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons107x.size()-1){
+            float x1 = beacons107x.get(beacons107x.size()-1);
+            float y1 = beacons107y.get(beacons107x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons107x.get(i-1),beacons107y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin7);
+      String timeMaxStr = df.format(timeMax7);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
     }
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin7);
-    String timeMaxStr = df.format(timeMax7);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
   
   
     nya.endTransform();
@@ -1409,84 +1456,91 @@ void draw(){
     nya.beginTransform(id11);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
     
-    scale(1.3);
-      
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest8 != null){
-      if(i == 0){
-        float x1 = beacons108x.get(0);
-        float y1 = beacons108y.get(0);
-        
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons108x.size()-1; i++){
-         float x1 = beacons108x.get(i);
-         float y1 = beacons108y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons108x.get(i-1),beacons108y.get(i-1));
-    
-         
-         println(i+":"+x1+":"+y1);
-        }
-        
-        if(i == beacons108x.size()-1){
-          float x1 = beacons108x.get(beacons108x.size()-1);
-          float y1 = beacons108y.get(beacons108x.size()-1);
-          
-          noStroke();
-          fill(0,0,255);
-          beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons108x.get(i-1),beacons108y.get(i-1));
-    
-          println(i+":"+x1+":"+y1);
-        }
-      }
+    if( aa) {
+      environment();
     }
     
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin8);
-    String timeMaxStr = df.format(timeMax8);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
+    if( bb){
+      i = 0;
+      
+      scale(1.3);
+        
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
+        
+      if(latest8 != null){
+        if(i == 0){
+          float x1 = beacons108x.get(0);
+          float y1 = beacons108y.get(0);
+          
+          noStroke();
+          fill(255,0,0);
+          beaconsdata(x1,y1);
+          println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons108x.size()-1; i++){
+           float x1 = beacons108x.get(i);
+           float y1 = beacons108y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons108x.get(i-1),beacons108y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons108x.size()-1){
+            float x1 = beacons108x.get(beacons108x.size()-1);
+            float y1 = beacons108y.get(beacons108x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons108x.get(i-1),beacons108y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
+        }
+      }
+      
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin8);
+      String timeMaxStr = df.format(timeMax8);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
+    }
     
   
     nya.endTransform();
@@ -1496,84 +1550,90 @@ void draw(){
     nya.beginTransform(id12);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
+    if( aa) {
+      environment();
+    }
     
-    scale(1.3);
+    if( bb){
+      i = 0;
       
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest9 != null){
-      if(i == 0){
-        float x1 = beacons109x.get(0);
-        float y1 = beacons109y.get(0);
+      scale(1.3);
         
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons109x.size()-1; i++){
-         float x1 = beacons109x.get(i);
-         float y1 = beacons109y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons109x.get(i-1),beacons109y.get(i-1));
-    
-         
-         println(i+":"+x1+":"+y1);
-        }
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
         
-        if(i == beacons109x.size()-1){
-          float x1 = beacons109x.get(beacons109x.size()-1);
-          float y1 = beacons109y.get(beacons109x.size()-1);
+      if(latest9 != null){
+        if(i == 0){
+          float x1 = beacons109x.get(0);
+          float y1 = beacons109y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons109x.get(i-1),beacons109y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons109x.size()-1; i++){
+           float x1 = beacons109x.get(i);
+           float y1 = beacons109y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons109x.get(i-1),beacons109y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons109x.size()-1){
+            float x1 = beacons109x.get(beacons109x.size()-1);
+            float y1 = beacons109y.get(beacons109x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons109x.get(i-1),beacons109y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin9);
+      String timeMaxStr = df.format(timeMax9);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
     }
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin9);
-    String timeMaxStr = df.format(timeMax9);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
   
     nya.endTransform();
   }
@@ -1582,84 +1642,90 @@ void draw(){
     nya.beginTransform(id13);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
+    if( aa) {
+      environment();
+    }
     
-    scale(1.3);
+    if( bb){
+      i = 0;
       
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest10 != null){
-      if(i == 0){
-        float x1 = beacons110x.get(0);
-        float y1 = beacons110y.get(0);
+      scale(1.3);
         
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons110x.size()-1; i++){
-         float x1 = beacons110x.get(i);
-         float y1 = beacons110y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons110x.get(i-1),beacons110y.get(i-1));
-    
-         
-         println(i+":"+x1+":"+y1);
-        }
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
         
-        if(i == beacons110x.size()-1){
-          float x1 = beacons110x.get(beacons110x.size()-1);
-          float y1 = beacons110y.get(beacons110x.size()-1);
+      if(latest10 != null){
+        if(i == 0){
+          float x1 = beacons110x.get(0);
+          float y1 = beacons110y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons110x.get(i-1),beacons110y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons110x.size()-1; i++){
+           float x1 = beacons110x.get(i);
+           float y1 = beacons110y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons110x.get(i-1),beacons110y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons110x.size()-1){
+            float x1 = beacons110x.get(beacons110x.size()-1);
+            float y1 = beacons110y.get(beacons110x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons110x.get(i-1),beacons110y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
-    }
-  
-    rotateX(PI);
-    rotateY(PI);
     
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin10);
-    String timeMaxStr = df.format(timeMax10);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin10);
+      String timeMaxStr = df.format(timeMax10);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
+    }        
   
     nya.endTransform();
   }
@@ -1668,85 +1734,90 @@ void draw(){
     nya.beginTransform(id14);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
+    if( aa) {
+      environment();
+    }
     
-    scale(1.3);
+    if( bb){
+      i = 0;
       
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest11 != null){
-      if(i == 0){
-        float x1 = beacons111x.get(0);
-        float y1 = beacons111y.get(0);
+      scale(1.3);
         
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons111x.size()-1; i++){
-         float x1 = beacons111x.get(i);
-         float y1 = beacons111y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons111x.get(i-1),beacons111y.get(i-1));
-    
-         
-         println(i+":"+x1+":"+y1);
-        }
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
         
-        if(i == beacons111x.size()-1){
-          float x1 = beacons111x.get(beacons111x.size()-1);
-          float y1 = beacons111y.get(beacons111x.size()-1);
+      if(latest11 != null){
+        if(i == 0){
+          float x1 = beacons111x.get(0);
+          float y1 = beacons111y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons111x.get(i-1),beacons111y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons111x.size()-1; i++){
+           float x1 = beacons111x.get(i);
+           float y1 = beacons111y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons111x.get(i-1),beacons111y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons111x.size()-1){
+            float x1 = beacons111x.get(beacons111x.size()-1);
+            float y1 = beacons111y.get(beacons111x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons111x.get(i-1),beacons111y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin11);
+      String timeMaxStr = df.format(timeMax11);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
     }
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin11);
-    String timeMaxStr = df.format(timeMax11);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
-  
     nya.endTransform();
   }
 
@@ -1754,84 +1825,90 @@ void draw(){
     nya.beginTransform(id15);
     fill(0,0,225);
     translate(0,0,20);
-    i = 0;
+    if( aa) {
+      environment();
+    }
     
-    scale(1.3);
+    if( bb){
+      i = 0;
       
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
-    if(latest12 != null){
-      if(i == 0){
-        float x1 = beacons112x.get(0);
-        float y1 = beacons112y.get(0);
+      scale(1.3);
         
-        noStroke();
-        fill(255,0,0);
-        beaconsdata(x1,y1);
-        println(i+":"+x1+":"+y1);
-        i++;
-      }
-      if(i > 0){
-        for(i= 1; i < beacons112x.size()-1; i++){
-         float x1 = beacons112x.get(i);
-         float y1 = beacons112y.get(i);
-         
-         fill(0,0,0);
-         beaconsdata(x1,y1);
-         //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
-         stroke(0,0,0);
-         drawline(x1,y1,beacons112x.get(i-1),beacons112y.get(i-1));
-    
-         
-         println(i+":"+x1+":"+y1);
-        }
+      translate(0,20,0);
+      beginShape(QUAD);
+      textureMode(NORMAL);
+      texture(img);
+      vertex(-100,-125,1,1);
+      vertex(-100,125,1,0);
+      vertex(100,125,0,0);
+      vertex(100,-125,0,1);
+      endShape();
+      translate(0,-20,0);
         
-        if(i == beacons109x.size()-1){
-          float x1 = beacons112x.get(beacons112x.size()-1);
-          float y1 = beacons112y.get(beacons112x.size()-1);
+      if(latest12 != null){
+        if(i == 0){
+          float x1 = beacons112x.get(0);
+          float y1 = beacons112y.get(0);
           
           noStroke();
-          fill(0,0,255);
+          fill(255,0,0);
           beaconsdata(x1,y1);
-          stroke(0,0,0);
-          drawline(x1,y1,beacons112x.get(i-1),beacons112y.get(i-1));
-    
           println(i+":"+x1+":"+y1);
+          i++;
+        }
+        if(i > 0){
+          for(i= 1; i < beacons112x.size()-1; i++){
+           float x1 = beacons112x.get(i);
+           float y1 = beacons112y.get(i);
+           
+           fill(0,0,0);
+           beaconsdata(x1,y1);
+           //drawline(x1,y1,beacons101x[i-1],beacons101y[i-1]);
+           stroke(0,0,0);
+           drawline(x1,y1,beacons112x.get(i-1),beacons112y.get(i-1));
+      
+           
+           println(i+":"+x1+":"+y1);
+          }
+          
+          if(i == beacons109x.size()-1){
+            float x1 = beacons112x.get(beacons112x.size()-1);
+            float y1 = beacons112y.get(beacons112x.size()-1);
+            
+            noStroke();
+            fill(0,0,255);
+            beaconsdata(x1,y1);
+            stroke(0,0,0);
+            drawline(x1,y1,beacons112x.get(i-1),beacons112y.get(i-1));
+      
+            println(i+":"+x1+":"+y1);
+          }
         }
       }
+    
+      rotateX(PI);
+      rotateY(PI);
+      
+      fill(255,255,255);
+      
+      beginShape(QUAD);
+      vertex(-105,150,1,1);
+      vertex(-105,130,1,0);
+      vertex(105,130,0,0);
+      vertex(105,150,0,1);
+      endShape();
+      
+      scale(0.74);
+      
+      translate(0,0,5);
+      fill(0,0,0);
+      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      String timeMinStr = df.format(timeMin12);
+      String timeMaxStr = df.format(timeMax12);
+      
+      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+      translate(0,0,-5);
     }
-  
-    rotateX(PI);
-    rotateY(PI);
-    
-    fill(255,255,255);
-    
-    beginShape(QUAD);
-    vertex(-105,150,1,1);
-    vertex(-105,130,1,0);
-    vertex(105,130,0,0);
-    vertex(105,150,0,1);
-    endShape();
-    
-    scale(0.74);
-    
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin12);
-    String timeMaxStr = df.format(timeMax12);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-    translate(0,0,-5);
   
     nya.endTransform();
   }
