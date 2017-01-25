@@ -1940,74 +1940,75 @@ void draw(){
       endShape();
       translate(0,-20,0);
       
-      if(latest1 != null){
-        translate(0,0,10);
-        noStroke();
-        fill(255,0,0);
-        ellipse(75,105,4,4);
-        translate(0,0,-10);
-      }
-      if(latest2 != null){
-        translate(0,0,10);
-        noStroke();
-        fill(255,0,0);
-        ellipse(75,85,4,4);
-        translate(0,0,-10);
-      }
-      if(latest3 != null){
-        translate(0,0,10);
-        noStroke();
-        fill(255,0,0);
-        ellipse(75,65,4,4);
-        translate(0,0,-10);
-      }
-      if(latest4 != null){
-        translate(0,0,10);
-        noStroke();
-        fill(255,0,0);
-        ellipse(75,45,4,4);
-        translate(0,0,-10);
-      }
-      if(latest5 != null){
-        translate(0,0,10);
-        noStroke();
-        fill(255,0,0);
-        ellipse(75,25,4,4);
-        translate(0,0,-10);
-      }
-      if(latest6 != null){
-        translate(0,0,10);
-        noStroke();
-        fill(255,0,0);
-        ellipse(75,5,4,4);
-        translate(0,0,-10);
-      }
-      if(latest7 != null){
-        translate(0,0,10);
-        noStroke();
-        fill(255,0,0);
-        ellipse(75,-15,4,4);
-        translate(0,0,-10);
-      }
-      if(latest8 != null){
+      if(latest1 != null){//きたば
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,-35,4,4);
         translate(0,0,-10);
       }
-      if(latest9 != null){
+      if(latest2 != null){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,-55,4,4);
         translate(0,0,-10);
       }
+      if(latest3 != null){
+        translate(0,0,10);
+        noStroke();
+        fill(255,0,0);
+        ellipse(75,85,4,4);
+        translate(0,0,-10);
+      }
+      if(latest4 != null){
+        translate(0,0,10);
+        noStroke();
+        fill(255,0,0);
+        ellipse(75,105,4,4);
+        translate(0,0,-10);
+      }
+      if(latest5 != null){
+        translate(0,0,10);
+        noStroke();
+        fill(255,0,0);
+        ellipse(75,65,4,4);
+        translate(0,0,-10);
+      }
+      if(latest6 != null){
+        translate(0,0,10);
+        noStroke();
+        fill(255,0,0);
+        ellipse(75,25,4,4);
+        translate(0,0,-10);
+      }
+      if(latest7 != null){
+        translate(0,0,10);
+        noStroke();
+        fill(255,0,0);
+        ellipse(75,25,4,4);
+        translate(0,0,-10);
+      }
+      if(latest8 != null){
+        translate(0,0,10);
+        noStroke();
+        fill(255,0,0);
+        ellipse(75,5,4,4);
+        translate(0,0,-10);
+        println("sanjou");
+      }
+      if(latest9 != null){
+        translate(0,0,10);
+        noStroke();
+        fill(255,0,0);
+        ellipse(75,-15,4,4);
+        translate(0,0,-10);
+      }
       if(latest10 != null){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
-        ellipse(65,-85,4,4);
+       ellipse(65,-85,4,4);
         translate(0,0,-10);
       }
       if(latest11 != null){
@@ -2017,7 +2018,7 @@ void draw(){
         ellipse(40,-85,4,4);
         translate(0,0,-10);
       }
-      if(latest2 != null){
+      if(latest12 != null){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
