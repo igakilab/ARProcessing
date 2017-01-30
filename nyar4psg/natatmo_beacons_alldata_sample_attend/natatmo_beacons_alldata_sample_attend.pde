@@ -529,7 +529,7 @@ void setup(){
   }
   
   if( latest6 != null ){
-    Date timemax6 = latest1.getDate("date");
+    Date timemax6 = latest6.getDate("date");
     timeMax6 = timemax6.getTime();
     timeMin6 = timemax6.getTime();
     for(i = 0; i < Time6.size(); i++){
@@ -1940,85 +1940,84 @@ void draw(){
       endShape();
       translate(0,-20,0);
       
-      if(latest1 != null){//きたば
+      if(beacons101x.size()> 5){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,-35,4,4);
         translate(0,0,-10);
       }
-      if(latest2 != null){
+      if(beacons102x.size()> 5){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,-55,4,4);
         translate(0,0,-10);
       }
-      if(latest3 != null){
+      if(beacons103x.size()> 5){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,85,4,4);
         translate(0,0,-10);
       }
-      if(latest4 != null){
+      if(beacons104x.size()> 5){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,105,4,4);
         translate(0,0,-10);
       }
-      if(latest5 != null){
+      if(beacons105x.size()> 5){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,65,4,4);
         translate(0,0,-10);
       }
-      if(latest6 != null){
+      if( beacons106x.size()> 5 ){
+        translate(0,0,10);
+        noStroke();
+        fill(255,0,0);
+        ellipse(75,45,4,4);
+        translate(0,0,-10);
+      }
+      if( beacons107x.size()> 5 ){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,25,4,4);
         translate(0,0,-10);
       }
-      if(latest7 != null){
-        translate(0,0,10);
-        noStroke();
-        fill(255,0,0);
-        ellipse(75,25,4,4);
-        translate(0,0,-10);
-      }
-      if(latest8 != null){
+      if( beacons108x.size()> 5 ){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,5,4,4);
         translate(0,0,-10);
-        println("sanjou");
       }
-      if(latest9 != null){
+      if( beacons109x.size()> 5 ){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(75,-15,4,4);
         translate(0,0,-10);
       }
-      if(latest10 != null){
+      if( beacons110x.size()> 5 ){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
        ellipse(65,-85,4,4);
         translate(0,0,-10);
       }
-      if(latest11 != null){
+      if(beacons111x.size()> 5){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
         ellipse(40,-85,4,4);
         translate(0,0,-10);
       }
-      if(latest12 != null){
+      if(beacons112x.size()> 5){
         translate(0,0,10);
         noStroke();
         fill(255,0,0);
