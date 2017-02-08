@@ -19,7 +19,7 @@ https://processing.org/
 ## Processingのライブラリ群の導入  
 本研究のアプリケーションはいくつかのProcessingライブラリの導入を前提としている.以下に導入の手順を記す.  
 
-1. Processingのインストールにて展開した processing.exe を1度起動し, C:\Users\{ユーザ名}\ドキュメント に Processing フォルダを生成する.
+1. Processingのインストールにて展開した processing.exe を1度起動し, C:\Users\{ユーザ名}\ドキュメント に Processing フォルダを生成する.なお,Processingの起動毎に表示されるWelcome to Processing 3のウィンドウは左下のチェックマークを外した上で横のGet Startedボタンをクリックすることで表示されなくなる.
 
 2. MongoDBのライブラリを導入する.まずは以下のリンクからjarファイルをダウンロードする.  
 https://repo.maven.apache.org/maven2/org/mongodb/mongo-java-driver/3.3.0/mongo-java-driver-3.3.0.jar
@@ -30,7 +30,7 @@ https://repo.maven.apache.org/maven2/org/mongodb/mongo-java-driver/3.3.0/mongo-j
 
 5. https://github.com/nyatla/NyARToolkit-for-Processing/releases/download/v5.0.5/nyar4psg.zip をダウンロードし,展開したフォルダをドキュメントの libraries フォルダに配置する.
 
-6. processing.exeを起動し,メニューバーから スケッチ->ライブラリをインポート->ライブラリを追加 と選択する.検索欄(Filterと表示されている)にvideoと入力するといくつかライブラリが表示されるので,以下の図と同様のものをインストールする.  
+6. processing.exe を起動し,メニューバーから スケッチ->ライブラリをインポート->ライブラリを追加 と選択する.検索欄(Filterと表示されている)にvideoと入力するといくつかライブラリが表示されるので,以下の図と同様のものをインストールする.  
 ![Video](readme_images/Video.png)
 
 7. processingのメニューバーから スケッチ->ライブラリをインポート と再度選択すると,Video という選択肢が増えていることを確認する.
@@ -44,7 +44,9 @@ https://repo.maven.apache.org/maven2/org/mongodb/mongo-java-driver/3.3.0/mongo-j
 ## 実行
 リリース用のファイルを以下のURLからダウンロードし,任意の場所に展開する.  
 https://github.com/igakilab/ARProcessing/archive/for_release.zip  
-展開したフォルダ内の natatmo_beacons_alldata_sample_attend.pde をProcessingで開き,左上の実行ボタンをクリックすることで実行が可能である.  
+展開したフォルダ内の natatmo_beacons_alldata_sample_attend.pde をProcessingで開くと以下のような画面が表示される.  
+USBカメラを接続し,左上の実行ボタンをクリックすることで実行が可能である.  
+![実行](readme_images/execute.png)
 
 ## プログラムを開かずに実行する  
 プログラムが実行でき,データを取得することが可能になれば,Processingのファイル->アプリケーションとしてエクスポートする を実行することで,実行可能なアプリケーションとそのためのファイル群が application.windows64 (application.windows32) フォルダとともに生成される.この中のexeファイルを実行することで,アプリケーション単体での利用が可能となる.
