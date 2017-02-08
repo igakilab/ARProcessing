@@ -26,7 +26,7 @@ https://repo.maven.apache.org/maven2/org/mongodb/mongo-java-driver/3.3.0/mongo-j
 
 3. ドキュメントの Processing フォルダの libraries フォルダの中で新しいフォルダを作成し,"mongodb-java-driver-3.3.0"とリネームする.
 
-4. 作成した mongodb-java-driver-3.3.0 フォルダ内にさらに library フォルダを作成し、その中にダウンロードしたjarファイルを配置する.
+4. 作成した mongodb-java-driver-3.3.0 フォルダ内にさらに library フォルダを作成し,その中にダウンロードしたjarファイルを配置する.
 
 5. https://github.com/nyatla/NyARToolkit-for-Processing/releases/download/v5.0.5/nyar4psg.zip をダウンロードし,展開したフォルダをドキュメントの libraries フォルダに配置する.
 
@@ -69,7 +69,7 @@ Processingのファイル->アプリケーションとしてエクスポート�
 
 ## 実行例
 カメラで印刷したARマーカーを映すと,グラフまたはビーコンの移動状況が表示される.  
-画面左上のGRAPHをクリックするとグラフの表示が消え、もう一度クリックすると表示が戻る.  
+画面左上のGRAPHをクリックするとグラフの表示が消え,もう一度クリックすると表示が戻る.  
   
 ![実行例1](readme_images/example1.png)  
   
