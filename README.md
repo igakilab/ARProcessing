@@ -41,14 +41,14 @@ https://repo.maven.apache.org/maven2/org/mongodb/mongo-java-driver/3.3.0/mongo-j
 
 以上の手順により5つのライブラリを導入することで,本研究のアプリケーションを実行する環境が整う.  
 
-## 実行
+## 準備と実行
 リリース用のファイルを以下のURLからダウンロードし,任意の場所に展開する.  
 https://github.com/igakilab/ARProcessing/archive/for_release.zip  
 展開したフォルダの階層は以下のようになっている.  
 
 natatmo_beacons_alldata_sample_attend  
 │　natatmo_beacons_alldata_sample_attend.pde  
-│　
+│  
 ├─armarker_for_print  
 │　　　…  
 └─data  
@@ -56,19 +56,27 @@ natatmo_beacons_alldata_sample_attend
 　　└─armarker  
 　　　　…  
 
-アプリケーションで利用するARマーカーが armarker_for_print に格納されているため,このフォルダのdocxファイルをすべて印刷する.  
+アプリケーションで利用するARマーカーが armarker_for_print に格納されているため,まずはこのフォルダのdocxファイルをすべて印刷する.  
+  
 natatmo_beacons_alldata_sample_attend.pde をProcessingで開くと以下のような画面が表示される.  
+USBカメラを接続し,左上の実行ボタンをクリックするとアプリケーションが実行される.  
 ![実行](readme_images/execute.png)
-USBカメラを接続し,左上の実行ボタンをクリックすることで実行が可能である.  
 
 ## プログラムを開かずに実行する  
-プログラムが実行でき,データを取得することが可能になれば,Processingのファイル->アプリケーションとしてエクスポートする を実行することで,実行可能なアプリケーションとそのためのファイル群が application.windows64 (application.windows32) フォルダとともに生成される.この中のexeファイルを実行することで,アプリケーション単体での利用が可能となる.
+プログラムが実行でき,データを取得することが可能になれば,  
+Processingのファイル->アプリケーションとしてエクスポートする  
+を実行することで,実行可能なアプリケーションとそのためのファイル群が application.windows64 (application.windows32) フォルダとともに生成される.この中のexeファイルを実行することで,アプリケーション単体での利用が可能となる.
 
 ## 実行例
 カメラで印刷したARマーカーを映すと,グラフまたはビーコンの移動状況が表示される.  
 画面左上のGRAPHをクリックするとグラフの表示が消え、もう一度クリックすると表示が戻る.  
+  
 ![実行例1](readme_images/example1.png)  
+  
 グラフの表示が消えた状態で画面左上のNOWをクリックすると,以下の画像のようになる.  
+  
 ![実行例2](readme_images/example2.png)  
+  
 グラフが表示された状態でNOWをクリックすると表示がおかしくなるため,やらないほうがよい.  
+  
 ![実行例3](readme_images/example3.png)
