@@ -60,6 +60,7 @@ import java.util.*;
 import java.text.*;
 
 ControlP5 Button;
+ControlFont font;
 boolean aa = true, bb = false;
 Capture cam;
 MultiMarker nya;
@@ -203,16 +204,22 @@ void setup(){
   cal.set(year(), month()-1, day(), 0, 0, 0);
   Date d1 = cal.getTime();
   
+  
+  
   Button = new ControlP5(this);
+  font = new ControlFont(createFont("ArialUnicodeMS-48",100));
+  
+  //createButton("now",0,10,10,100, 50, font);
   Button.addButton("now")
         .setValue(0)
         .setPosition(10,10)
-        .setSize(50,20);
+        .setSize(100,50);
   
   Button.addButton("graph")
+        .setLabel("history")
         .setValue(100)
-        .setPosition(70,10)
-        .setSize(60,10);
+        .setPosition(120,10)
+        .setSize(100,50);
   
   minim = new Minim(this);  //初期化
   player = minim.loadFile("button01a.mp3");  
@@ -529,7 +536,7 @@ void setup(){
   }
   
   if( latest6 != null ){
-    Date timemax6 = latest1.getDate("date");
+    Date timemax6 = latest6.getDate("date");
     timeMax6 = timemax6.getTime();
     timeMin6 = timemax6.getTime();
     for(i = 0; i < Time6.size(); i++){
@@ -807,7 +814,17 @@ void draw(){
     translate(0,0,20);
     
     if( aa) {
-      environment();
+      lab();
+      if(latest1 != null){
+        float x1 = beacons101x.get(0);
+        float y1 = beacons101y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -815,17 +832,7 @@ void draw(){
     
     scale(1.3);
     
-    translate(0,20,0);
-    beginShape(QUAD);
-    textureMode(NORMAL);
-    texture(img);
-    vertex(-100,-125,1,1);
-    vertex(-100,125,1,0);
-    vertex(100,125,0,0);
-    vertex(100,-125,0,1);
-    endShape();
-    translate(0,-20,0);
-      
+    lab();    
     if(latest1 != null){
       if(i == 0){
         float x1 = beacons101x.get(0);
@@ -881,14 +888,7 @@ void draw(){
     
     scale(0.74);
     
-    translate(0,0,5);
-    fill(0,0,0);
-    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    String timeMinStr = df.format(timeMin1);
-    String timeMaxStr = df.format(timeMax1);
-    
-    text(""+timeMinStr+"~"+timeMaxStr, -140, 190);
-    translate(0,0,-5);
+    labtime(timeMin1, timeMax1);
     }
   
     nya.endTransform();
@@ -901,7 +901,18 @@ void draw(){
     translate(0,0,20);
     
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest2 != null){
+        float x1 = beacons102x.get(0);
+        float y1 = beacons102y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -909,16 +920,7 @@ void draw(){
       
       scale(1.3);
       
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       
       if(latest2 != null){
@@ -976,14 +978,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin2);
-      String timeMaxStr = df.format(timeMax2);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 190);
-      translate(0,0,-5);  
+      labtime(timeMin2, timeMax2); 
     }
     nya.endTransform();
   }
@@ -994,7 +989,18 @@ void draw(){
     translate(0,0,20);
     
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest3 != null){
+        float x1 = beacons103x.get(0);
+        float y1 = beacons103y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1002,16 +1008,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest3 != null){
         if(i == 0){
@@ -1068,14 +1065,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin3);
-      String timeMaxStr = df.format(timeMax3);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin3, timeMax3);
     }
   
     nya.endTransform();
@@ -1087,7 +1077,18 @@ void draw(){
     translate(0,0,20);
     
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest4 != null){
+        float x1 = beacons104x.get(0);
+        float y1 = beacons104y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1095,16 +1096,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       
       if(latest4 != null){
@@ -1162,14 +1154,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin4);
-      String timeMaxStr = df.format(timeMax4);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin4, timeMax4);
     }
   
     nya.endTransform();
@@ -1181,7 +1166,18 @@ void draw(){
     translate(0,0,20);
     
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest5 != null){
+        float x1 = beacons105x.get(0);
+        float y1 = beacons105y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1189,16 +1185,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest5 != null){
         if(i == 0){
@@ -1256,14 +1243,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin5);
-      String timeMaxStr = df.format(timeMax5);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin5, timeMax5);
     }
   
     nya.endTransform();
@@ -1274,7 +1254,18 @@ void draw(){
     fill(0,0,225);
     translate(0,0,20);
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest6 != null){
+        float x1 = beacons106x.get(0);
+        float y1 = beacons106y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1282,16 +1273,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest6 != null){
         if(i == 0){
@@ -1348,14 +1330,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin6);
-      String timeMaxStr = df.format(timeMax6);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin6, timeMax6);
     }
   
     nya.endTransform();
@@ -1367,7 +1342,18 @@ void draw(){
     translate(0,0,20);
     
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest7 != null){
+        float x1 = beacons107x.get(0);
+        float y1 = beacons107y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1375,16 +1361,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest7 != null){
         if(i == 0){
@@ -1441,14 +1418,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin7);
-      String timeMaxStr = df.format(timeMax7);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin7, timeMax7);
     }
   
   
@@ -1461,7 +1431,18 @@ void draw(){
     translate(0,0,20);
     
     if( aa) {
-      environment();
+      environment();scale(1.3);
+      lab();
+      if(latest8 != null){
+        float x1 = beacons108x.get(0);
+        float y1 = beacons108y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1469,16 +1450,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest8 != null){
         if(i == 0){
@@ -1535,14 +1507,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin8);
-      String timeMaxStr = df.format(timeMax8);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin8, timeMax8);
     }
     
   
@@ -1554,7 +1519,18 @@ void draw(){
     fill(0,0,225);
     translate(0,0,20);
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest9 != null){
+        float x1 = beacons109x.get(0);
+        float y1 = beacons109y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1562,16 +1538,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest9 != null){
         if(i == 0){
@@ -1628,14 +1595,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin9);
-      String timeMaxStr = df.format(timeMax9);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin9, timeMax9);
     }
   
     nya.endTransform();
@@ -1646,7 +1606,18 @@ void draw(){
     fill(0,0,225);
     translate(0,0,20);
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest10 != null){
+        float x1 = beacons110x.get(0);
+        float y1 = beacons110y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1654,16 +1625,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest10 != null){
         if(i == 0){
@@ -1720,14 +1682,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin10);
-      String timeMaxStr = df.format(timeMax10);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin10, timeMax10);
     }        
   
     nya.endTransform();
@@ -1738,7 +1693,18 @@ void draw(){
     fill(0,0,225);
     translate(0,0,20);
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest11 != null){
+        float x1 = beacons111x.get(0);
+        float y1 = beacons111y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1746,16 +1712,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest11 != null){
         if(i == 0){
@@ -1812,14 +1769,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin11);
-      String timeMaxStr = df.format(timeMax11);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin11, timeMax11);
     }
     nya.endTransform();
   }
@@ -1829,7 +1779,18 @@ void draw(){
     fill(0,0,225);
     translate(0,0,20);
     if( aa) {
-      environment();
+      scale(1.3);
+      lab();
+      if(latest12 != null){
+        float x1 = beacons112x.get(0);
+        float y1 = beacons112y.get(0);
+        
+        noStroke();
+        fill(255,0,0);
+        beaconsdata(x1,y1);
+        println(i+":"+x1+":"+y1);
+        i++;
+      }
     }
     
     if( bb){
@@ -1837,16 +1798,7 @@ void draw(){
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
         
       if(latest12 != null){
         if(i == 0){
@@ -1874,7 +1826,7 @@ void draw(){
            println(i+":"+x1+":"+y1);
           }
           
-          if(i == beacons109x.size()-1){
+          if(i == beacons112x.size()-1){
             float x1 = beacons112x.get(beacons112x.size()-1);
             float y1 = beacons112y.get(beacons112x.size()-1);
             
@@ -1903,14 +1855,7 @@ void draw(){
       
       scale(0.74);
       
-      translate(0,0,5);
-      fill(0,0,0);
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-      String timeMinStr = df.format(timeMin12);
-      String timeMaxStr = df.format(timeMax12);
-      
-      text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
-      translate(0,0,-5);
+      labtime(timeMin12, timeMax12);
     }
   
     nya.endTransform();
@@ -1920,25 +1865,14 @@ void draw(){
     nya.beginTransform(id16);
     fill(0,0,225);
     translate(0,0,20);
-    if( aa) {
-      environment();
-    }
+    
     
     if( bb){
       i = 0;
       
       scale(1.3);
         
-      translate(0,20,0);
-      beginShape(QUAD);
-      textureMode(NORMAL);
-      texture(img);
-      vertex(-100,-125,1,1);
-      vertex(-100,125,1,0);
-      vertex(100,125,0,0);
-      vertex(100,-125,0,1);
-      endShape();
-      translate(0,-20,0);
+      lab();
       
       if(beacons101x.size()> 5){
         translate(0,0,10);
@@ -2039,6 +1973,15 @@ void graph(){
   bb = !bb;
 }
 
+//Button createButton(String theName, int theValue, int theX, int theY, int theZ, int theW,ControlFont theFont){
+//  Button b = Button.addButton(theName)
+//        .setValue(theValue)
+//        .setPosition(theX,theY)
+//        .setSize(theZ, theW)
+//        .captionLabel().setControlFont(theFont);
+//  return b;
+//}
+
 //netatmoの現在のデータ
 void environment(){
 
@@ -2071,7 +2014,8 @@ void environment(){
   else {
     fill(0,255,0);
   }
-  text("temperature : "+tem+"℃", 0, 0);
+  textSize(16);
+  text("temperature : "+tem+"℃", 130, -20);
   
   if( Humidity > 60){
     fill(255,0,0);    
@@ -2081,7 +2025,7 @@ void environment(){
   else {
     fill(0,255,0);
   }
-  text("Humidity : "+Humidity+"%", 0, 10);
+  text("Humidity : "+Humidity+"%", 130, 0);
   
   if( CO2 > 1500){
     fill(255,0,0);    
@@ -2090,7 +2034,21 @@ void environment(){
   }else{
     fill(0,0,255);
   }
-  text("CO2 : "+CO2+"ppm", 0, 20);
+  text("CO2 : "+CO2+"ppm", 130, 20);
+  translate(-50,60,0);
+  fill(0,0,0);
+  text("CO2 concentration",50,25);
+  
+  if( CO2 > 1500){
+    fill(255,0,0,CO2/15);    
+  }else if( CO2 > 700){
+    fill(0,255,0,CO2/30);
+  }else{
+    fill(0,0,255,CO2);
+  }
+  
+  ellipse(0,50,50,50);
+  translate(50,-60,0);
   
   if( Noise > 60){
     fill(255,0,0);
@@ -2099,19 +2057,40 @@ void environment(){
   }else{
     fill(0,0,255);
   }
-  text("Noise : "+Noise+"dB", 0, 30);
+  text("Noise : "+Noise+"dB", 130, 40);
   
-  translate(-50,0, 0);
+  translate(-50,-20, 0);
   box(10,10,Noise*6);
+  translate(50,20, 0);
   
-  
-  translate(0,50,0);
   fill(0,0,0);
-  text("CO2 concentration",-30,25);
-  fill(255,255,0,CO2/15);
-  ellipse(0,50,50,50);
+  text("Noise",-30,0);
+
 }
 
+void lab(){
+  translate(0,20,0);
+  beginShape(QUAD);
+  textureMode(NORMAL);
+  texture(img);
+  vertex(-100,-125,1,1);
+  vertex(-100,125,1,0);
+  vertex(100,125,0,0);
+  vertex(100,-125,0,1);
+  endShape();
+  translate(0,-20,0);
+}
+
+void labtime(long timeMin12, long timeMax12){
+  translate(0,0,5);
+  fill(0,0,0);
+  DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+  String timeMinStr = df.format(timeMin12);
+  String timeMaxStr = df.format(timeMax12);
+  
+  text(""+timeMinStr+"~"+timeMaxStr, -140, 200);
+  translate(0,0,-5);
+}
 
 
 //グラフの準備
